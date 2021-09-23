@@ -42,8 +42,8 @@ public class Menu {
 	}
 
 	private void displayMenuOptions(Object[] options) {
-		out.println();
-		for (int i = 0; i < options.length; i++) {
+		out.println("\n Best Ever Vending Machine \n");
+		for (int i = 0; i < options.length-1; i++) {
 			int optionNum = i + 1;
 			out.println(optionNum + ") " + options[i]);
 		}
