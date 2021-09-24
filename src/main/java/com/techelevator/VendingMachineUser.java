@@ -10,7 +10,7 @@ public class VendingMachineUser {
     private double accountBalance;
 
     //populate list above with all items bought by single user
-    //we need a method to poulate this list which will be called from z vending machine class by creating a user class
+    //we need a method to populate this list which will be called from z vending machine class by creating a user class
 
     public void boughtItems(Product item){
         itemsBought.add(item);

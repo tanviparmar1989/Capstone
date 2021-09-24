@@ -1,0 +1,57 @@
+1. Vending Machine has a Main Menu.
+2. ----Main Menu Display - 1) Display Vending Machine Items
+                        2) Purchase
+                        3) Exit
+3. Vending machine gets stocked via IO file --
+        * refer QuizMaker project to get the file data.
+        * File is | seperated
+        * we have to create the class to store the attributes of items.
+        * for reference
+        // Delimiting the text file
+                String[] strings = lineOfText.split("\\|");
+
+        // picking up the index
+                String question = strings[0];
+                System.out.println(question);
+
+                int correctAnsIndex = 0;
+                for (int i = 1; i < strings.length; i++) {
+                    String option = strings[i];
+                    if (option.endsWith("*")) {
+                        correctAnsIndex = i;
+                        option = option.substring(0, option.length() - 1);
+                    }
+                    System.out.println(i + ". " + option);
+                }
+4. meaning - everytime application runs step 3 should run bydefault.
+5.Customer - from Main Menu -
+                        1) Display Vending Machine = shows items + quantity remaining
+                            * items has slotLocation (key) and Price.
+                            * max no. of items in each slot= 5
+                            * intially each slot has 5 items
+                            * if item out of stock -- indicate "SOLDOUT".
+6.Customer - from Main Menu -
+                        2) Purchase
+                            2.1) Feed Money
+                            2.2) Select Product
+                            2.3) Finish Transaction
+                            Current Money Provided: $2.00 (Customer fed into the machine )
+7.Customer - from Main Menu - 2) Purchase- 2.1) Feed Money
+                                                * allow repeatedly feed money in valid whole dollar amounts
+                                                * the amount should display in Purchase window
+                                           2.2) Select Product
+                                                * Display the list of items and ask customer to enter code using Scanner for an item
+                                                * if code != slotLocation -- "invalid Item"-- return Purchase Menu.
+                                                * if item = soldout -- "item soldout" -- return Purchase Menu
+                                                * if code = slotLocation -- dispensed to the customer
+                                                * Dispensing display:
+                                                        * Item name
+                                                        * Item price
+                                                        * Money remaining =  Feed Money - Item Price.
+                                                        * message as per the type of item
+                                                * once its done. go back to  Main Menu -- Display Vending Machine Item= shows items + quantity remaining
+
+
+                                           2.3) Finish Transaction
+                                                * return the change to customer - using smallest amt of coins nickels, dimes and quarters.
+                                                * Machine's current Balance = 0
