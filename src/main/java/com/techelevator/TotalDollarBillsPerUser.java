@@ -9,16 +9,31 @@ public class TotalDollarBillsPerUser {
     private int twoDollarBills = 0;
     private int fiveDollarBills = 0;
     private int tenDollarBills = 0;
+    private double totalBalance;
+
 
     public TotalDollarBillsPerUser(int oneDollarBills, int twoDollarBills, int fiveDollarBills, int tenDollarBills) {
         this.oneDollarBills = oneDollarBills * 1;
         this.twoDollarBills = twoDollarBills * 2;
         this.fiveDollarBills = fiveDollarBills * 5;
         this.tenDollarBills = tenDollarBills * 10;
+        this.totalBalance = this.oneDollarBills + this.twoDollarBills + this.fiveDollarBills + this.tenDollarBills;
+    }
+
+//    private void calculateUserBalance(){
+//        this.totalBalance = this.oneDollarBills + this.twoDollarBills + this.fiveDollarBills + this.tenDollarBills;
+//    }
+
+    public double getTotalBalance() {
+        return totalBalance;
+    }
+
+    public void setTotalBalance(double totalBalance) {
+        this.totalBalance -= totalBalance;
     }
 
     public String getUserBalance(){
-        int total = this.oneDollarBills + this.twoDollarBills + this.fiveDollarBills + this.tenDollarBills;
+        double total = getTotalBalance();
         Locale locale = new Locale("en", "US");
         NumberFormat dollarFormat = NumberFormat.getCurrencyInstance(locale);
         return dollarFormat.format(total);
@@ -30,6 +45,8 @@ public class TotalDollarBillsPerUser {
         for(int index=0;index<numberDollarBillsInText.length;index++){
             result[index] = Integer.parseInt(numberDollarBillsInText[index]);
         }
+        AuditLog.log("changed customer money into integer array. Contents are:" + result[0] + result[1] + result[3] + result[4]);
         return result;
+
     }
 }

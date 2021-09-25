@@ -11,7 +11,6 @@ public class VendingMachine {
     private List<Products> productList = new ArrayList<>();
     //private Map<VendingMachineUser, TotalDollarBillsPerUser> machineUsers = new HashMap<>();
     private TotalDollarBillsPerUser customerMoney = new TotalDollarBillsPerUser(0,0,0,0);
-    private int balance;
     private String[] userSelectedProductsSlotNumbers;
 
 /*
@@ -22,9 +21,7 @@ public class VendingMachine {
     }
     */
 
-    public void setBalance(int balance) {
-        this.balance = balance;
-    }
+
 
     public void acceptMoney(){
         Scanner userInput = new Scanner(System.in);
@@ -34,8 +31,9 @@ public class VendingMachine {
         System.out.println(" Example: If you would like to enter 2 ten dollar bills: 0,0,0,2");
         System.out.println("Please enter dollar bills:");
         String userEnteredBills = userInput.nextLine();
-        int[] enteredCoins = TotalDollarBillsPerUser.parseMoney(userEnteredBills);
-        customerMoney = new TotalDollarBillsPerUser(enteredCoins[0], enteredCoins[1], enteredCoins[2], enteredCoins[3]);
+        int[] enteredBills = TotalDollarBillsPerUser.parseMoney(userEnteredBills);
+        customerMoney = new TotalDollarBillsPerUser(enteredBills[0], enteredBills[1], enteredBills[2], enteredBills[3]);
+        AuditLog.log("Prompted user to enter money and then accepted the money and created a TotalDollarBillsPerUser object.");
     }
 
     public void selectProduct(){
@@ -44,33 +42,39 @@ public class VendingMachine {
         String userChosenItem = userInput.nextLine();
         String[] slotsNumbersOfSelectedProducts = userChosenItem.split(",");
         userSelectedProductsSlotNumbers = slotsNumbersOfSelectedProducts;
+        AuditLog.log("Captured customer selections. Slot numbers are:");
+        for(String slot: userSelectedProductsSlotNumbers){
+            AuditLog.log(slot);
+        }
     }
 
     public void dispenseProducts(){
         System.out.println("Dispensing products: ");
-        for(String userItem: userSelectedProductsSlotNumbers){
+        AuditLog.log("Dispensing products");
+        for(String slotNumberUser: userSelectedProductsSlotNumbers){
             for(Products product: this.productList){
                 String slot = product.getSlotLocation();
-                if(userItem.equalsIgnoreCase(slot)){
+                if(slotNumberUser.equalsIgnoreCase(slot)){
                     AuditLog.log("Starting Quantity " + product.getQuantity());
                     AuditLog.log("Starting balance " + getUserBalance());
                     product.setQuantity(product.getQuantity()-1);
                     AuditLog.log("Reduced quantity of "+product.getProductName()+" by 1.");
                     double price = product.getPrice();
                     AuditLog.log("Reduced money balance by "+ price + "dollars. Now balance is" + getUserBalance());
-                    this.balance -= price;
+                    customerMoney.setTotalBalance(price);
                     System.out.println("Dispensed item "+product.getProductName());
                     AuditLog.log("Dispensed item "+product.getProductName());
                 }
             }
         }
+        AuditLog.log("Dispensed all products by reducing quantity of each and reducing money balance as well.");
     }
 
     public void disperseChange(){
-        if(this.balance > 0) {
+        if(customerMoney.getTotalBalance() > 0) {
             AuditLog.log("Current user balance is: "+getUserBalance());
             System.out.println("Your change is: " + getUserBalance());
-            setBalance(0);
+            customerMoney.setTotalBalance(customerMoney.getTotalBalance());
             AuditLog.log("set user balance to zero and provided change to user.");
             AuditLog.log("Now balance is: " + getUserBalance());
         }
@@ -82,6 +86,7 @@ public class VendingMachine {
 
     public void displayUserBalance(){
         System.out.println(System.lineSeparator() + "Current Money Provided >>> " + getUserBalance()+"\n");
+        AuditLog.log("Displayed user balance to customer and the balance is: "+ getUserBalance());
     }
 
     public void displayProducts(){
@@ -101,6 +106,7 @@ public class VendingMachine {
                         product.getSlotLocation(), product.getProductName(), product.getPrice(), product.getType(), product.getQuantity()));
             }
         }
+        AuditLog.log("Displayed products menu.");
     }
 
     public void restock() {

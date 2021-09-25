@@ -25,17 +25,21 @@ public class VendingMachineCLI {
 	public void run() {
 		while (true) {
 			VendingMachine restockMachine = new VendingMachine();
+			AuditLog.log("Created a vending machine.");
 			restockMachine.restock();
+			AuditLog.log("Restocked the vending machine.");
 			String choice = (String) menu.getChoiceFromOptions(MAIN_MENU_OPTIONS);
+			AuditLog.log("Displayed main menu to customer.");
 			if (choice.equals(MAIN_MENU_OPTION_DISPLAY_ITEMS)) {
 				// display vending machine items
+				AuditLog.log("Customer chose to display items.");
 				restockMachine.displayProducts();
-
 			} else if (choice.equals(MAIN_MENU_OPTION_PURCHASE)) {
 				// do purchase
 				choice = (String) menu.getChoiceFromOptions(MAIN_MENU_OPTIONS_LEVEL2, restockMachine);
+				AuditLog.log("Customer chose to purchase items so displayed menu 2 to customer.");
 				if (choice.equals(MAIN_MENU_OPTION_FEED_MONEY)) {
-					// ask user for money
+					AuditLog.log("Customer chose to feed money.");
 					restockMachine.acceptMoney();
 					restockMachine.displayUserBalance();
 					restockMachine.displayProducts();
@@ -43,18 +47,9 @@ public class VendingMachineCLI {
 					restockMachine.dispenseProducts();
 					restockMachine.disperseChange();
 				}
-				/*else if (choice.equals(MAIN_MENU_OPTION_SELECT_PRODUCT)) {
-					// show user a list of products and allow them to pick one. Once picked, then process the choice.
-					restockMachine.displayProducts();
-
-
-				}else if(choice.equals(MAIN_MENU_OPTION_FINISH_TRANSACTION)){
-					// exit
-				}
-
-				 */
 			}else if(choice.equals(MAIN_MENU_OPTION_EXIT)){
 				// exit
+				System.exit(1);
 			}else if(choice.equals(MAIN_MENU_OPTION_SALES_REPORT)){
 				//make it hidden and it generates a report
 			}
