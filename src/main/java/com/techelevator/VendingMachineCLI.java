@@ -50,6 +50,7 @@ public class VendingMachineCLI {
 			}else if(choice.equals(MAIN_MENU_OPTION_EXIT)){
 				// exit
 				System.exit(1);
+				AuditLog.log("Exiting the application.");
 			}else if(choice.equals(MAIN_MENU_OPTION_SALES_REPORT)){
 				//make it hidden and it generates a report
 			}

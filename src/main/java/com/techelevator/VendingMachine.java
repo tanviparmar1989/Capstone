@@ -58,9 +58,9 @@ public class VendingMachine {
                     AuditLog.log("Starting Quantity " + product.getQuantity());
                     AuditLog.log("Starting balance " + getUserBalance());
                     product.setQuantity(product.getQuantity()-1);
-                    AuditLog.log("Reduced quantity of "+product.getProductName()+" by 1.");
+                    AuditLog.log("Reduced quantity of "+product.getProductName()+" by 1. New quantity is " + product.getQuantity());
                     double price = product.getPrice();
-                    AuditLog.log("Reduced money balance by "+ price + "dollars. Now balance is" + getUserBalance());
+                    AuditLog.log("Reduced money balance by "+ price + " dollars. Now balance is " + getUserBalance());
                     customerMoney.setTotalBalance(price);
                     System.out.println("Dispensed item "+product.getProductName());
                     AuditLog.log("Dispensed item "+product.getProductName());

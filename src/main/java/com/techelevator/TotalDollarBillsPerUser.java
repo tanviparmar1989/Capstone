@@ -45,8 +45,7 @@ public class TotalDollarBillsPerUser {
         for(int index=0;index<numberDollarBillsInText.length;index++){
             result[index] = Integer.parseInt(numberDollarBillsInText[index]);
         }
-        AuditLog.log("changed customer money into integer array. Contents are:" + result[0] + result[1] + result[3] + result[4]);
+        AuditLog.log("Changed customer money into integer array. Contents are: " + result[0]+" " + result[1]+" " + result[2]+" " + result[3]);
         return result;
-
     }
 }
