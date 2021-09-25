@@ -10,9 +10,10 @@ import java.time.format.FormatStyle;
 
 public class AuditLog {
     private static PrintWriter logWriter;
-    private static LocalDateTime current = LocalDateTime.now();
 
-    public static void log(String message){
+
+    public static void log(String message) throws AuditLogException{
+        LocalDateTime current = LocalDateTime.now();
         String logDate = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM).format(current);
         File logFile = new File("logs/"+logDate+ " Log.txt");
         try{

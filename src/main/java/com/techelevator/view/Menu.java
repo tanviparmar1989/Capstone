@@ -1,5 +1,7 @@
 package com.techelevator.view;
 
+import com.techelevator.VendingMachine;
+
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
@@ -19,6 +21,15 @@ public class Menu {
 		Object choice = null;
 		while (choice == null) {
 			displayMenuOptions(options);
+			choice = getChoiceFromUserInput(options);
+		}
+		return choice;
+	}
+
+	public Object getChoiceFromOptions(Object[] options, VendingMachine machine) {
+		Object choice = null;
+		while (choice == null) {
+			displayMenuOptions(options, machine);
 			choice = getChoiceFromUserInput(options);
 		}
 		return choice;
@@ -47,6 +58,18 @@ public class Menu {
 			int optionNum = i + 1;
 			out.println(optionNum + ") " + options[i]);
 		}
+		//out.print(System.lineSeparator() + "Current Money Provided >>> ");
+		out.print(System.lineSeparator() + "Please choose an option >>> ");
+		out.flush();
+	}
+
+	private void displayMenuOptions(Object[] options, VendingMachine machine) {
+		out.println("\n Best Ever Vending Machine \n");
+		for (int i = 0; i < options.length-1; i++) {
+			int optionNum = i + 1;
+			out.println(optionNum + ") " + options[i]);
+		}
+		out.print(System.lineSeparator() + "Current Money Provided >>> " + machine.getUserBalance()+"\n");
 		out.print(System.lineSeparator() + "Please choose an option >>> ");
 		out.flush();
 	}

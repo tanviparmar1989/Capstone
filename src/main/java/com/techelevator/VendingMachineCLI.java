@@ -12,7 +12,7 @@ public class VendingMachineCLI {
 	private static final String MAIN_MENU_OPTION_FEED_MONEY = "Feed Money";
 	private static final String MAIN_MENU_OPTION_SELECT_PRODUCT = "Select Product";
 	private static final String MAIN_MENU_OPTION_FINISH_TRANSACTION = "Finish Transaction";
-	private static final String[] MAIN_MENU_OPTIONS_LEVEL2 = { MAIN_MENU_OPTION_FEED_MONEY, MAIN_MENU_OPTION_SELECT_PRODUCT, MAIN_MENU_OPTION_FINISH_TRANSACTION };
+	private static final String[] MAIN_MENU_OPTIONS_LEVEL2 = { MAIN_MENU_OPTION_FEED_MONEY, MAIN_MENU_OPTION_SELECT_PRODUCT, MAIN_MENU_OPTION_FINISH_TRANSACTION, "" };
 
 	private Menu menu;
 
@@ -22,26 +22,31 @@ public class VendingMachineCLI {
 
 	public void run() {
 		while (true) {
-			String choice = (String) menu.getChoiceFromOptions(MAIN_MENU_OPTIONS);
 			VendingMachine restockMachine = new VendingMachine();
 			restockMachine.restock();
+			String choice = (String) menu.getChoiceFromOptions(MAIN_MENU_OPTIONS);
 			if (choice.equals(MAIN_MENU_OPTION_DISPLAY_ITEMS)) {
 				// display vending machine items
 				restockMachine.displayProducts();
 			} else if (choice.equals(MAIN_MENU_OPTION_PURCHASE)) {
 				// do purchase
-				choice = (String) menu.getChoiceFromOptions(MAIN_MENU_OPTIONS_LEVEL2);
+				choice = (String) menu.getChoiceFromOptions(MAIN_MENU_OPTIONS_LEVEL2, restockMachine);
 				if (choice.equals(MAIN_MENU_OPTION_FEED_MONEY)) {
 					// ask user for money
-
-
-				} else if (choice.equals(MAIN_MENU_OPTION_SELECT_PRODUCT)) {
+					restockMachine.acceptMoney();
+					restockMachine.displayProducts();
+					restockMachine.selectProduct();
+				}
+				/*else if (choice.equals(MAIN_MENU_OPTION_SELECT_PRODUCT)) {
 					// show user a list of products and allow them to pick one. Once picked, then process the choice.
+					restockMachine.displayProducts();
 
 
 				}else if(choice.equals(MAIN_MENU_OPTION_FINISH_TRANSACTION)){
 					// exit
 				}
+
+				 */
 			}else if(choice.equals(MAIN_MENU_OPTION_EXIT)){
 				// exit
 			}else if(choice.equals(MAIN_MENU_OPTION_SALES_REPORT)){
