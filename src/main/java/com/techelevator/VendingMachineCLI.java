@@ -2,6 +2,8 @@ package com.techelevator;
 
 import com.techelevator.view.Menu;
 
+import java.util.Scanner;
+
 public class VendingMachineCLI {
 
 	private static final String MAIN_MENU_OPTION_DISPLAY_ITEMS = "Display Vending Machine Items";
@@ -28,10 +30,13 @@ public class VendingMachineCLI {
 			if (choice.equals(MAIN_MENU_OPTION_DISPLAY_ITEMS)) {
 				// display vending machine items
 				restockMachine.displayProducts();
+
 			} else if (choice.equals(MAIN_MENU_OPTION_PURCHASE)) {
 				// do purchase
 				choice = (String) menu.getChoiceFromOptions(MAIN_MENU_OPTIONS_LEVEL2, restockMachine);
 				if (choice.equals(MAIN_MENU_OPTION_FEED_MONEY)) {
+
+
 					// ask user for money
 					restockMachine.acceptMoney();
 					restockMachine.displayProducts();
