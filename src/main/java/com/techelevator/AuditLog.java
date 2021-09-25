@@ -12,7 +12,7 @@ public class AuditLog {
     private static PrintWriter logWriter;
 
 
-    public static void log(String message) throws AuditLogException{
+    public static void log(String message) throws CapstoneAuditLogException {
         LocalDateTime current = LocalDateTime.now();
         String logDate = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM).format(current);
         File logFile = new File("logs/"+logDate+ " Log.txt");
@@ -20,7 +20,7 @@ public class AuditLog {
             if(logWriter == null) logWriter = new PrintWriter(new FileWriter(logFile));
             logWriter.println(logDate + " " + message);
         }catch(IOException e){
-            throw new AuditLogException(e.getMessage());
+            throw new CapstoneAuditLogException(e.getMessage());
         }finally{
             logWriter.flush();
         }

@@ -2,15 +2,17 @@ package com.techelevator;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.text.NumberFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
 public class VendingMachine {
 
-    private List<Product> productList = new ArrayList<>();
+    private List<Products> productList = new ArrayList<>();
     //private Map<VendingMachineUser, TotalDollarBillsPerUser> machineUsers = new HashMap<>();
     private TotalDollarBillsPerUser customerMoney = new TotalDollarBillsPerUser(0,0,0,0);
-    private static int balance;
+    private int balance;
+    private String[] userSelectedProductsSlotNumbers;
 
 /*
     public void acceptOrders(int slotNumber, int quantity){
@@ -20,8 +22,8 @@ public class VendingMachine {
     }
     */
 
-    public static void setBalance(int balance) {
-        VendingMachine.balance = balance;
+    public void setBalance(int balance) {
+        this.balance = balance;
     }
 
     public void acceptMoney(){
@@ -33,22 +35,53 @@ public class VendingMachine {
         System.out.println("Please enter dollar bills:");
         String userEnteredBills = userInput.nextLine();
         int[] enteredCoins = TotalDollarBillsPerUser.parseMoney(userEnteredBills);
-        this.customerMoney = new TotalDollarBillsPerUser(enteredCoins[0], enteredCoins[1], enteredCoins[2], enteredCoins[3]);
+        customerMoney = new TotalDollarBillsPerUser(enteredCoins[0], enteredCoins[1], enteredCoins[2], enteredCoins[3]);
     }
 
-    public String[] selectProduct(){
+    public void selectProduct(){
         Scanner userInput = new Scanner(System.in);
-        System.out.println(" Please enter slot number of preferred item: ");
+        System.out.println(" \nPlease enter slot number of preferred item: ");
         String userChosenItem = userInput.nextLine();
         String[] slotsNumbersOfSelectedProducts = userChosenItem.split(",");
-        for(String product: slotsNumbersOfSelectedProducts){
-            System.out.println(product);
+        userSelectedProductsSlotNumbers = slotsNumbersOfSelectedProducts;
+    }
+
+    public void dispenseProducts(){
+        System.out.println("Dispensing products: ");
+        for(String userItem: userSelectedProductsSlotNumbers){
+            for(Products product: this.productList){
+                String slot = product.getSlotLocation();
+                if(userItem.equalsIgnoreCase(slot)){
+                    AuditLog.log("Starting Quantity " + product.getQuantity());
+                    AuditLog.log("Starting balance " + getUserBalance());
+                    product.setQuantity(product.getQuantity()-1);
+                    AuditLog.log("Reduced quantity of "+product.getProductName()+" by 1.");
+                    double price = product.getPrice();
+                    AuditLog.log("Reduced money balance by "+ price + "dollars. Now balance is" + getUserBalance());
+                    this.balance -= price;
+                    System.out.println("Dispensed item "+product.getProductName());
+                    AuditLog.log("Dispensed item "+product.getProductName());
+                }
+            }
         }
-        return slotsNumbersOfSelectedProducts;
+    }
+
+    public void disperseChange(){
+        if(this.balance > 0) {
+            AuditLog.log("Current user balance is: "+getUserBalance());
+            System.out.println("Your change is: " + getUserBalance());
+            setBalance(0);
+            AuditLog.log("set user balance to zero and provided change to user.");
+            AuditLog.log("Now balance is: " + getUserBalance());
+        }
     }
 
     public String getUserBalance(){
         return customerMoney.getUserBalance();
+    }
+
+    public void displayUserBalance(){
+        System.out.println(System.lineSeparator() + "Current Money Provided >>> " + getUserBalance()+"\n");
     }
 
     public void displayProducts(){
@@ -59,7 +92,7 @@ public class VendingMachine {
         System.out.println();
         System.out.println("-----------------------------------------------------------------------------");
 
-        for(Product product: productList){
+        for(Products product: productList){
             if(product.getQuantity()==0){
                 System.out.println(String.format("%10s   %10s  %10s.2f  %10s  SOLD OUT",
                         product.getSlotLocation(), product.getProductName(), product.getPrice(), product.getType()));
@@ -77,7 +110,7 @@ public class VendingMachine {
             try (Scanner readFile = new Scanner(file)) {
                 while (readFile.hasNext()) {
                     String[] products = readFile.nextLine().split("\\|", 4);
-                    productList.add(new Product(products[0], products[1], Double.parseDouble(products[2]), products[3]));
+                    this.productList.add(new Products(products[0], products[1], Double.parseDouble(products[2]), products[3]));
                 }
 
             } catch (FileNotFoundException e) {

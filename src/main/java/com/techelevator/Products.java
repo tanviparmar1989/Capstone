@@ -1,17 +1,17 @@
 package com.techelevator;
 
-public class Product {
+public class Products {
     private String slotLocation;
     private String productName;
     private double price;
     private String type;
     private int quantity;
 
-    public Product(){
+    public Products(){
 
     }
 
-    public Product(String slotLocation, String productName, double price, String type){
+    public Products(String slotLocation, String productName, double price, String type){
         this.slotLocation = slotLocation;
         this.productName = productName;
         this.price = price;

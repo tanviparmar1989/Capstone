@@ -35,12 +35,13 @@ public class VendingMachineCLI {
 				// do purchase
 				choice = (String) menu.getChoiceFromOptions(MAIN_MENU_OPTIONS_LEVEL2, restockMachine);
 				if (choice.equals(MAIN_MENU_OPTION_FEED_MONEY)) {
-
-
 					// ask user for money
 					restockMachine.acceptMoney();
+					restockMachine.displayUserBalance();
 					restockMachine.displayProducts();
 					restockMachine.selectProduct();
+					restockMachine.dispenseProducts();
+					restockMachine.disperseChange();
 				}
 				/*else if (choice.equals(MAIN_MENU_OPTION_SELECT_PRODUCT)) {
 					// show user a list of products and allow them to pick one. Once picked, then process the choice.

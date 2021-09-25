@@ -6,13 +6,13 @@ import java.util.List;
 public class VendingMachineUser {
 
     //
-    private List<Product> itemsBought = new ArrayList<>();
+    private List<Products> itemsBought = new ArrayList<>();
     private double accountBalance;
 
     //populate list above with all items bought by single user
     //we need a method to populate this list which will be called from z vending machine class by creating a user class
 
-    public void boughtItems(Product item){
+    public void boughtItems(Products item){
         itemsBought.add(item);
     }
 
