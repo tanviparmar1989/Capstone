@@ -93,16 +93,16 @@ public class VendingMachine {
         System.out.println("\nList of items:\n");
         //System.out.println("Slot Name        Price   Type   Quantity");
         System.out.println("-----------------------------------------------------------------------------");
-        System.out.printf("%10s %10s %10s %10s %10s", "Code", "Product Name", "Price", "Type", "Quantity");
+        System.out.printf("%10s %20s %22s %10s %15s", "Code", "Product Name", "Price", "Type", "Quantity");
         System.out.println();
         System.out.println("-----------------------------------------------------------------------------");
 
         for(Products product: productList){
             if(product.getQuantity()==0){
-                System.out.println(String.format("%10s   %10s  %10s.2f  %10s  SOLD OUT",
+                System.out.println(String.format("%8s   %20s  %20.2f  %10s  SOLD OUT",
                         product.getSlotLocation(), product.getProductName(), product.getPrice(), product.getType()));
             }else{
-                System.out.println(String.format("%10s   %10s  %10.2f  %10s  %10d",
+                System.out.println(String.format("%8s   %20s  %20.2f  %10s  %10d",
                         product.getSlotLocation(), product.getProductName(), product.getPrice(), product.getType(), product.getQuantity()));
             }
         }
