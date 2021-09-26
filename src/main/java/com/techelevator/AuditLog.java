@@ -11,11 +11,14 @@ import java.time.format.FormatStyle;
 public class AuditLog {
     private static PrintWriter logWriter;
 
-
     public static void log(String message) throws CapstoneAuditLogException {
         LocalDateTime current = LocalDateTime.now();
         String logDate = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM).format(current);
-        File logFile = new File("logs/"+logDate+ " Log.txt");
+        String logDateFormatted = logDate
+                .replaceAll(",", "")
+                .replaceAll(":| ", "_");
+
+        File logFile = new File("logs/" + logDateFormatted + ".log");
         try{
             if(logWriter == null) logWriter = new PrintWriter(new FileWriter(logFile));
             logWriter.println(logDate + " " + message);
