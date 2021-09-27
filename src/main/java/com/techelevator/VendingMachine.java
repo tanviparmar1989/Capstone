@@ -2,9 +2,7 @@ package com.techelevator;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class VendingMachine {
 
@@ -12,14 +10,6 @@ public class VendingMachine {
     //private Map<VendingMachineUser, TotalDollarBillsPerUser> machineUsers = new HashMap<>();
     private TotalDollarBillsPerUser customerMoney = new TotalDollarBillsPerUser(0,0,0,0);
     private String[] userSelectedProductsSlotNumbers;
-
-/*
-    public void acceptOrders(int slotNumber, int quantity){
-        //see how u can get user input and then pull a product from 'productList' to create a Product object so as to
-        //then create a user object and call its 'boughtItems' method by passing the product created.
-
-    }
-    */
 
 
 
@@ -40,7 +30,7 @@ public class VendingMachine {
         Scanner userInput = new Scanner(System.in);
         System.out.println(" \nPlease enter slot number of preferred item: ");
         String userChosenItem = userInput.nextLine();
-        String[] slotsNumbersOfSelectedProducts = userChosenItem.split(",");
+        String[] slotsNumbersOfSelectedProducts = userChosenItem.trim().split("\\s*,\\s*");
         userSelectedProductsSlotNumbers = slotsNumbersOfSelectedProducts;
         AuditLog.log("Captured customer selections. Slot numbers are:");
         for(String slot: userSelectedProductsSlotNumbers){
@@ -48,10 +38,10 @@ public class VendingMachine {
         }
     }
 
-    public boolean dispenseProducts(){
+    public void dispenseProducts(){
         System.out.println("Dispensing products: ");
-        boolean dispensed = false;
         AuditLog.log("Dispensing products");
+        Set<String> dispensedSlotNumbers = new HashSet<>();
         for(String slotNumberUser: userSelectedProductsSlotNumbers){
             for(Products product: this.productList){
                 String slot = product.getSlotLocation();
@@ -75,18 +65,20 @@ public class VendingMachine {
                     System.out.println("Dispensed item "+product.getProductName()+", " + "cost: "+product.getPrice()+", "+"Remaining balance: "+ displayUserBalance());
                     System.out.println(productTypeSpecificStatement);
                     AuditLog.log("Dispensed item "+product.getProductName()+", " + "cost: "+product.getPrice()+", "+"Remaining balance: "+ displayUserBalance());
-                    dispensed = true;
-                }else{
-                    System.out.println("The slot number entered: " + slotNumberUser+ " does not exist.");
-                    AuditLog.log("User entered a slot number: " + slotNumberUser+ "  that does not exist.");
+                    dispensedSlotNumbers.add(slotNumberUser);
                 }
             }
         }
-        if(dispensed) AuditLog.log("Dispensed all user chosen products by reducing quantity of each and reducing money balance as well.");
-        else{
-            AuditLog.log("Machine did not dispense any products because all chosen slot numbers were invalid.");
+        checkIfAllSlotsValid(userSelectedProductsSlotNumbers, dispensedSlotNumbers);
+    }
+
+    public void checkIfAllSlotsValid(String[] userEnteredSlots, Set<String> dispensedSlotNumbers){
+        for(String userEnteredSlot: userEnteredSlots){
+            if(!dispensedSlotNumbers.contains(userEnteredSlot)) {
+                System.out.println("The slot number entered: " + userEnteredSlot+ ", does not exist.");
+                AuditLog.log("User entered a slot number: " + userEnteredSlot+ ",  that does not exist.");
+            }
         }
-        return dispensed;
     }
 
     public void disperseChange(){
