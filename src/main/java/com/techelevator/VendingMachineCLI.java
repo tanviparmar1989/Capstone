@@ -46,6 +46,16 @@ public class VendingMachineCLI {
 					restockMachine.selectProduct();
 					restockMachine.dispenseProducts();
 					restockMachine.disperseChange();
+				}else if(choice.equals(MAIN_MENU_OPTION_SELECT_PRODUCT)){
+					restockMachine.displayProducts();
+					restockMachine.selectProduct();
+					restockMachine.acceptMoney();
+					restockMachine.displayUserBalance();
+					boolean dispensed = restockMachine.dispenseProducts();
+					if(!dispensed) continue;
+					restockMachine.disperseChange();
+				}else if(choice.equals(MAIN_MENU_OPTION_FINISH_TRANSACTION)){
+					restockMachine.disperseChange();
 				}
 			}else if(choice.equals(MAIN_MENU_OPTION_EXIT)){
 				// exit

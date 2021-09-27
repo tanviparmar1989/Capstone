@@ -42,8 +42,13 @@ public class TotalDollarBillsPerUser {
     public static int[] parseMoney(String dollarBills){
         String[] numberDollarBillsInText = dollarBills.split(",");
         int[] result = new int[numberDollarBillsInText.length];
-        for(int index=0;index<numberDollarBillsInText.length;index++){
-            result[index] = Integer.parseInt(numberDollarBillsInText[index]);
+        try{
+            for(int index=0;index<numberDollarBillsInText.length;index++){
+                result[index] = Integer.parseInt(numberDollarBillsInText[index]);
+            }
+        }catch(NumberFormatException e){
+            AuditLog.log(e.getMessage());
+            System.out.println("Invalid input!");
         }
         AuditLog.log("Changed customer money into integer array. Contents are: " + result[0]+" " + result[1]+" " + result[2]+" " + result[3]);
         return result;

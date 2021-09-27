@@ -48,8 +48,9 @@ public class VendingMachine {
         }
     }
 
-    public void dispenseProducts(){
+    public boolean dispenseProducts(){
         System.out.println("Dispensing products: ");
+        boolean dispensed = false;
         AuditLog.log("Dispensing products");
         for(String slotNumberUser: userSelectedProductsSlotNumbers){
             for(Products product: this.productList){
@@ -57,17 +58,35 @@ public class VendingMachine {
                 if(slotNumberUser.equalsIgnoreCase(slot)){
                     AuditLog.log("Starting Quantity " + product.getQuantity());
                     AuditLog.log("Starting balance " + getUserBalance());
+                    if(product.getQuantity()<=0){
+                        System.out.println(product.getProductName()+" is SOLD OUT.");
+                        break;
+                    }
                     product.setQuantity(product.getQuantity()-1);
                     AuditLog.log("Reduced quantity of "+product.getProductName()+" by 1. New quantity is " + product.getQuantity());
                     double price = product.getPrice();
                     AuditLog.log("Reduced money balance by "+ price + " dollars. Now balance is " + getUserBalance());
                     customerMoney.setTotalBalance(price);
-                    System.out.println("Dispensed item "+product.getProductName());
-                    AuditLog.log("Dispensed item "+product.getProductName());
+                    String productTypeSpecificStatement = "";
+                    if(product.getType().equalsIgnoreCase("Chip")) productTypeSpecificStatement = "Crunch Crunch, Yum!";
+                    else if (product.getType().equalsIgnoreCase("Candy")) productTypeSpecificStatement = "Munch Munch, Yum!";
+                    else if (product.getType().equalsIgnoreCase("Drink")) productTypeSpecificStatement = "Glug Glug, Yum!";
+                    else if (product.getType().equalsIgnoreCase("Gum")) productTypeSpecificStatement = "Chew Chew, Yum!";
+                    System.out.println("Dispensed item "+product.getProductName()+", " + "cost: "+product.getPrice()+", "+"Remaining balance: "+ displayUserBalance());
+                    System.out.println(productTypeSpecificStatement);
+                    AuditLog.log("Dispensed item "+product.getProductName()+", " + "cost: "+product.getPrice()+", "+"Remaining balance: "+ displayUserBalance());
+                    dispensed = true;
+                }else{
+                    System.out.println("The slot number entered: " + slotNumberUser+ " does not exist.");
+                    AuditLog.log("User entered a slot number: " + slotNumberUser+ "  that does not exist.");
                 }
             }
         }
-        AuditLog.log("Dispensed all products by reducing quantity of each and reducing money balance as well.");
+        if(dispensed) AuditLog.log("Dispensed all user chosen products by reducing quantity of each and reducing money balance as well.");
+        else{
+            AuditLog.log("Machine did not dispense any products because all chosen slot numbers were invalid.");
+        }
+        return dispensed;
     }
 
     public void disperseChange(){
@@ -84,9 +103,10 @@ public class VendingMachine {
         return customerMoney.getUserBalance();
     }
 
-    public void displayUserBalance(){
+    public String displayUserBalance(){
         System.out.println(System.lineSeparator() + "Current Money Provided >>> " + getUserBalance()+"\n");
         AuditLog.log("Displayed user balance to customer and the balance is: "+ getUserBalance());
+        return getUserBalance();
     }
 
     public void displayProducts(){
@@ -120,7 +140,7 @@ public class VendingMachine {
                 }
 
             } catch (FileNotFoundException e) {
-                //revise what needs to be done here
+                AuditLog.log(e.getMessage());
             }
 
         }
