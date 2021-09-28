@@ -4,9 +4,7 @@ import com.techelevator.view.SalesReport;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class VendingMachine {
 
@@ -15,17 +13,10 @@ public class VendingMachine {
     private TotalDollarBillsPerUser customerMoney = new TotalDollarBillsPerUser(0,0,0,0);
     private String[] userSelectedProductsSlotNumbers;
 
-/*
-    public void acceptOrders(int slotNumber, int quantity){
-        //see how u can get user input and then pull a product from 'productList' to create a Product object so as to
-        //then create a user object and call its 'boughtItems' method by passing the product created.
-
-    }
-    */
 
 
-
-    public void acceptMoney(){
+    public boolean acceptMoney(){
+        boolean hasEnteredValid = false;
         Scanner userInput = new Scanner(System.in);
         System.out.println(" Please enter dollar bills as follows: ");
         System.out.println(" number of 1 dollar bills,number of 2 dollar bills,number of 5 dollar bills,number of 10 dollar bills  ");
@@ -34,15 +25,23 @@ public class VendingMachine {
         System.out.println("Please enter dollar bills:");
         String userEnteredBills = userInput.nextLine();
         int[] enteredBills = TotalDollarBillsPerUser.parseMoney(userEnteredBills);
-        customerMoney = new TotalDollarBillsPerUser(enteredBills[0], enteredBills[1], enteredBills[2], enteredBills[3]);
-        AuditLog.log("Prompted user to enter money and then accepted the money and created a TotalDollarBillsPerUser object.");
+        for(int bill: enteredBills){
+            if(bill>0) hasEnteredValid = true;
+        }
+        if(hasEnteredValid){
+            customerMoney = new TotalDollarBillsPerUser(enteredBills[0], enteredBills[1], enteredBills[2], enteredBills[3]);
+            AuditLog.log("Prompted user to enter money and then accepted the money and created a TotalDollarBillsPerUser object.");
+        }else{
+            System.out.println("You have not entered any money.");
+        }
+        return hasEnteredValid;
     }
 
     public void selectProduct(){
         Scanner userInput = new Scanner(System.in);
         System.out.println(" \nPlease enter slot number of preferred item: ");
         String userChosenItem = userInput.nextLine();
-        String[] slotsNumbersOfSelectedProducts = userChosenItem.split(",");
+        String[] slotsNumbersOfSelectedProducts = userChosenItem.trim().split("\\s*,\\s*");
         userSelectedProductsSlotNumbers = slotsNumbersOfSelectedProducts;
         AuditLog.log("Captured customer selections. Slot numbers are:");
         for(String slot: userSelectedProductsSlotNumbers){
@@ -55,30 +54,57 @@ public class VendingMachine {
         AuditLog.log("Dispensing products");
         List<Double> totalSales = new ArrayList<>();
         double totalSalesAmount = 0.0;
+        Set<String> dispensedSlotNumbers = new HashSet<>();
         for(String slotNumberUser: userSelectedProductsSlotNumbers){
             for(Products product: this.productList){
                 String slot = product.getSlotLocation();
                 if(slotNumberUser.equalsIgnoreCase(slot)){
                     AuditLog.log("Starting Quantity " + product.getQuantity());
                     AuditLog.log("Starting balance " + getUserBalance());
+                    if(product.getQuantity()<=0){
+                        System.out.println(product.getProductName()+" is SOLD OUT.");
+                        break;
+                    }
                     product.setQuantity(product.getQuantity()-1);
                     AuditLog.log("Reduced quantity of "+product.getProductName()+" by 1. New quantity is " + product.getQuantity());
                     double price = product.getPrice();
-                    AuditLog.log("Reduced money balance by "+ price + " dollars. Now balance is " + getUserBalance());
                     customerMoney.setTotalBalance(price);
-                    System.out.println("Dispensed item "+product.getProductName());
-                    AuditLog.log("Dispensed item "+product.getProductName());
+
+                    AuditLog.log("Reduced money balance by "+ price + " dollars. Now balance is " + getUserBalance());
+                    //
+                    String productTypeSpecificStatement = "";
+                    if(product.getType().equalsIgnoreCase("Chip")) productTypeSpecificStatement = "Crunch Crunch, Yum!";
+                    else if (product.getType().equalsIgnoreCase("Candy")) productTypeSpecificStatement = "Munch Munch, Yum!";
+                    else if (product.getType().equalsIgnoreCase("Drink")) productTypeSpecificStatement = "Glug Glug, Yum!";
+                    else if (product.getType().equalsIgnoreCase("Gum")) productTypeSpecificStatement = "Chew Chew, Yum!";
+                    //
+                    System.out.println("Dispensed item "+product.getProductName()+", " + "cost: "+product.getPrice()+", "+"Remaining balance: "+ getUserBalance());
+                    System.out.println(productTypeSpecificStatement);
+                    AuditLog.log("Dispensed item "+product.getProductName()+", " + "cost: "+product.getPrice()+", "+"Remaining balance: "+ getUserBalance());
+                    AuditLog.log(productTypeSpecificStatement);
+                    dispensedSlotNumbers.add(slotNumberUser);
                     totalSales.add(product.getPrice());
                     int numberOfItemSold = 5 - product.getQuantity();
                     SalesReport.salesReport(product.getProductName() + "|" + numberOfItemSold);
                 }
             }
         }
-        for(double sale : totalSales){
-            totalSalesAmount += sale;
+                    checkIfAllSlotsValid(userSelectedProductsSlotNumbers, dispensedSlotNumbers);
+                    for(double sale : totalSales){
+                         totalSalesAmount += sale;
+                    }
+                    SalesReport.salesReport("Total Sales : $" + totalSalesAmount);
+                    AuditLog.log("Dispensed all products by reducing quantity of each and reducing money balance as well.");
+
+    }
+
+    public void checkIfAllSlotsValid(String[] userEnteredSlots, Set<String> dispensedSlotNumbers){
+        for(String userEnteredSlot: userEnteredSlots){
+            if(!dispensedSlotNumbers.contains(userEnteredSlot)) {
+                System.out.println("The slot number entered: " + userEnteredSlot+ ", does not exist.");
+                AuditLog.log("User entered a slot number: " + userEnteredSlot+ ",  that does not exist.");
+            }
         }
-        SalesReport.salesReport("Total Sales : $" + totalSalesAmount);
-        AuditLog.log("Dispensed all products by reducing quantity of each and reducing money balance as well.");
     }
 
     public void disperseChange(){
@@ -95,9 +121,10 @@ public class VendingMachine {
         return customerMoney.getUserBalance();
     }
 
-    public void displayUserBalance(){
+    public String displayUserBalance(){
         System.out.println(System.lineSeparator() + "Current Money Provided >>> " + getUserBalance()+"\n");
         AuditLog.log("Displayed user balance to customer and the balance is: "+ getUserBalance());
+        return getUserBalance();
     }
 
     public void displayProducts(){
@@ -131,7 +158,7 @@ public class VendingMachine {
                 }
 
             } catch (FileNotFoundException e) {
-                //revise what needs to be done here
+                AuditLog.log(e.getMessage());
             }
 
         }

@@ -1,0 +1,71 @@
+Sep 28, 2021, 3:00:27 PM Created a vending machine.
+Sep 28, 2021, 3:00:28 PM Restocked the vending machine.
+Sep 28, 2021, 3:00:31 PM Displayed main menu to customer.
+Sep 28, 2021, 3:00:31 PM Customer chose to display items.
+Sep 28, 2021, 3:00:31 PM Displayed products menu.
+Sep 28, 2021, 3:00:31 PM Created a vending machine.
+Sep 28, 2021, 3:00:31 PM Restocked the vending machine.
+Sep 28, 2021, 3:00:36 PM Displayed main menu to customer.
+Sep 28, 2021, 3:00:36 PM Customer chose to display items.
+Sep 28, 2021, 3:00:36 PM Displayed products menu.
+Sep 28, 2021, 3:00:36 PM Created a vending machine.
+Sep 28, 2021, 3:00:36 PM Restocked the vending machine.
+Sep 28, 2021, 3:00:38 PM Displayed main menu to customer.
+Sep 28, 2021, 3:00:42 PM Customer chose to purchase items so displayed menu 2 to customer.
+Sep 28, 2021, 3:00:42 PM Customer chose to feed money.
+Sep 28, 2021, 3:00:46 PM Changed customer money into integer array. Contents are: 
+Sep 28, 2021, 3:00:46 PM 2
+Sep 28, 2021, 3:00:46 PM 2
+Sep 28, 2021, 3:00:46 PM 2
+Sep 28, 2021, 3:00:46 PM 2
+Sep 28, 2021, 3:00:46 PM Prompted user to enter money and then accepted the money and created a TotalDollarBillsPerUser object.
+Sep 28, 2021, 3:00:46 PM Displayed user balance to customer and the balance is: $36.00
+Sep 28, 2021, 3:00:46 PM Displayed products menu.
+Sep 28, 2021, 3:01:03 PM Captured customer selections. Slot numbers are:
+Sep 28, 2021, 3:01:03 PM a1
+Sep 28, 2021, 3:01:03 PM b2
+Sep 28, 2021, 3:01:03 PM Dispensing products
+Sep 28, 2021, 3:01:03 PM Starting Quantity 5
+Sep 28, 2021, 3:01:03 PM Starting balance $36.00
+Sep 28, 2021, 3:01:03 PM Reduced quantity of Potato Crisps by 1. New quantity is 4
+Sep 28, 2021, 3:01:03 PM Reduced money balance by 3.05 dollars. Now balance is $32.95
+Sep 28, 2021, 3:01:03 PM Dispensed item Potato Crisps, cost: 3.05, Remaining balance: $32.95
+Sep 28, 2021, 3:01:03 PM Crunch Crunch, Yum!
+Sep 28, 2021, 3:01:03 PM Starting Quantity 5
+Sep 28, 2021, 3:01:03 PM Starting balance $32.95
+Sep 28, 2021, 3:01:03 PM Reduced quantity of Cowtales by 1. New quantity is 4
+Sep 28, 2021, 3:01:03 PM Reduced money balance by 1.5 dollars. Now balance is $31.45
+Sep 28, 2021, 3:01:03 PM Dispensed item Cowtales, cost: 1.5, Remaining balance: $31.45
+Sep 28, 2021, 3:01:03 PM Munch Munch, Yum!
+Sep 28, 2021, 3:01:03 PM Dispensed all products by reducing quantity of each and reducing money balance as well.
+Sep 28, 2021, 3:01:03 PM Current user balance is: $31.45
+Sep 28, 2021, 3:01:03 PM set user balance to zero and provided change to user.
+Sep 28, 2021, 3:01:03 PM Now balance is: $0.00
+Sep 28, 2021, 3:01:45 PM Customer chose to purchase items so displayed menu 2 to customer.
+Sep 28, 2021, 3:01:45 PM Customer chose the 'select product' option so will display products.
+Sep 28, 2021, 3:01:45 PM Displayed products menu.
+Sep 28, 2021, 3:01:57 PM Captured customer selections. Slot numbers are:
+Sep 28, 2021, 3:01:57 PM c1
+Sep 28, 2021, 3:02:09 PM Changed customer money into integer array. Contents are: 
+Sep 28, 2021, 3:02:09 PM 2
+Sep 28, 2021, 3:02:09 PM 2
+Sep 28, 2021, 3:02:09 PM 2
+Sep 28, 2021, 3:02:09 PM 5
+Sep 28, 2021, 3:02:09 PM Prompted user to enter money and then accepted the money and created a TotalDollarBillsPerUser object.
+Sep 28, 2021, 3:02:09 PM Displayed user balance to customer and the balance is: $66.00
+Sep 28, 2021, 3:02:09 PM Dispensing products
+Sep 28, 2021, 3:02:09 PM Starting Quantity 5
+Sep 28, 2021, 3:02:09 PM Starting balance $66.00
+Sep 28, 2021, 3:02:09 PM Reduced quantity of Cola by 1. New quantity is 4
+Sep 28, 2021, 3:02:09 PM Reduced money balance by 1.25 dollars. Now balance is $64.75
+Sep 28, 2021, 3:02:09 PM Dispensed item Cola, cost: 1.25, Remaining balance: $64.75
+Sep 28, 2021, 3:02:09 PM Glug Glug, Yum!
+Sep 28, 2021, 3:02:09 PM Dispensed all products by reducing quantity of each and reducing money balance as well.
+Sep 28, 2021, 3:02:09 PM Current user balance is: $64.75
+Sep 28, 2021, 3:02:09 PM set user balance to zero and provided change to user.
+Sep 28, 2021, 3:02:09 PM Now balance is: $0.00
+Sep 28, 2021, 3:02:33 PM Customer chose to purchase items so displayed menu 2 to customer.
+Sep 28, 2021, 3:02:33 PM customer chose to finish transaction so gave customer change and reverted back to main menu.
+Sep 28, 2021, 3:02:33 PM Created a vending machine.
+Sep 28, 2021, 3:02:33 PM Restocked the vending machine.
+Sep 28, 2021, 3:02:36 PM Displayed main menu to customer.

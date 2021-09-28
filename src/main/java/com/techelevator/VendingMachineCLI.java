@@ -36,17 +36,32 @@ public class VendingMachineCLI {
 				restockMachine.displayProducts();
 			} else if (choice.equals(MAIN_MENU_OPTION_PURCHASE)) {
 				// do purchase
-				choice = (String) menu.getChoiceFromOptions(MAIN_MENU_OPTIONS_LEVEL2, restockMachine);
-				AuditLog.log("Customer chose to purchase items so displayed menu 2 to customer.");
-				if (choice.equals(MAIN_MENU_OPTION_FEED_MONEY)) {
-					AuditLog.log("Customer chose to feed money.");
-					restockMachine.acceptMoney();
-					restockMachine.displayUserBalance();
-					restockMachine.displayProducts();
-					restockMachine.selectProduct();
-					restockMachine.dispenseProducts();
-					restockMachine.disperseChange();
+				while(true){
+					choice = (String) menu.getChoiceFromOptions(MAIN_MENU_OPTIONS_LEVEL2, restockMachine);
+					AuditLog.log("Customer chose to purchase items so displayed menu 2 to customer.");
+					if (choice.equals(MAIN_MENU_OPTION_FEED_MONEY)) {
+						AuditLog.log("Customer chose to feed money.");
+						if(!restockMachine.acceptMoney()) continue;
+						restockMachine.displayUserBalance();
+						restockMachine.displayProducts();
+						restockMachine.selectProduct();
+						restockMachine.dispenseProducts();
+						restockMachine.disperseChange();
+					}else if(choice.equals(MAIN_MENU_OPTION_SELECT_PRODUCT)){
+						AuditLog.log("Customer chose the 'select product' option so will display products.");
+						restockMachine.displayProducts();
+						restockMachine.selectProduct();
+						if(!restockMachine.acceptMoney()) continue;
+						restockMachine.displayUserBalance();
+						restockMachine.dispenseProducts();
+						restockMachine.disperseChange();
+					}else if(choice.equals(MAIN_MENU_OPTION_FINISH_TRANSACTION)){
+						restockMachine.disperseChange();
+						AuditLog.log("customer chose to finish transaction so gave customer change and reverted back to main menu.");
+						break;
+					}
 				}
+
 			}else if(choice.equals(MAIN_MENU_OPTION_EXIT)){
 				// exit
 				System.exit(1);

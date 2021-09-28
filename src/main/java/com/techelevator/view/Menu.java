@@ -1,5 +1,6 @@
 package com.techelevator.view;
 
+import com.techelevator.AuditLog;
 import com.techelevator.VendingMachine;
 
 import java.io.InputStream;
@@ -45,6 +46,7 @@ public class Menu {
 			}
 		} catch (NumberFormatException e) {
 			// eat the exception, an error message will be displayed below since choice will be null
+			AuditLog.log(e.getMessage());
 		}
 		if (choice == null) {
 			out.println(System.lineSeparator() + "*** " + userInput + " is not a valid option ***" + System.lineSeparator());
