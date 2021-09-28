@@ -1,5 +1,7 @@
 package com.techelevator;
 
+import com.techelevator.view.SalesReport;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -51,6 +53,8 @@ public class VendingMachine {
     public void dispenseProducts(){
         System.out.println("Dispensing products: ");
         AuditLog.log("Dispensing products");
+        List<Double> totalSales = new ArrayList<>();
+        double totalSalesAmount = 0.0;
         for(String slotNumberUser: userSelectedProductsSlotNumbers){
             for(Products product: this.productList){
                 String slot = product.getSlotLocation();
@@ -64,9 +68,16 @@ public class VendingMachine {
                     customerMoney.setTotalBalance(price);
                     System.out.println("Dispensed item "+product.getProductName());
                     AuditLog.log("Dispensed item "+product.getProductName());
+                    totalSales.add(product.getPrice());
+                    int numberOfItemSold = 5 - product.getQuantity();
+                    SalesReport.salesReport(product.getProductName() + "|" + numberOfItemSold);
                 }
             }
         }
+        for(double sale : totalSales){
+            totalSalesAmount += sale;
+        }
+        SalesReport.salesReport("Total Sales : $" + totalSalesAmount);
         AuditLog.log("Dispensed all products by reducing quantity of each and reducing money balance as well.");
     }
 
