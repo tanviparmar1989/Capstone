@@ -1,8 +1,0 @@
-Sep 25, 2021, 2:53:28 PM Starting Quantity 5
-Sep 25, 2021, 2:53:28 PM Starting balance $18.00
-Sep 25, 2021, 2:53:28 PM Reduced quantity of Triplemint by 1.
-Sep 25, 2021, 2:53:28 PM Reduced money balance by 0.75dollars. Now balance is$18.00
-Sep 25, 2021, 2:53:28 PM Dispensed item Triplemint
-Sep 25, 2021, 2:53:28 PM Current user balance is: $17.25
-Sep 25, 2021, 2:53:28 PM set user balance to zero and provided change to user.
-Sep 25, 2021, 2:53:28 PM Now balance is: $0.00

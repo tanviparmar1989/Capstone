@@ -29,7 +29,7 @@ public class TotalDollarBillsPerUser {
     }
 
     public void setTotalBalance(double totalBalance) {
-        this.totalBalance -= totalBalance;
+            this.totalBalance -= totalBalance;
     }
 
     public String getUserBalance(){
@@ -40,7 +40,7 @@ public class TotalDollarBillsPerUser {
     }
 
     public static int[] parseMoney(String dollarBills){
-        String[] numberDollarBillsInText = dollarBills.split(",");
+        String[] numberDollarBillsInText = dollarBills.trim().split("\\s*,\\s*");
         int[] result = new int[numberDollarBillsInText.length];
         try{
             for(int index=0;index<numberDollarBillsInText.length;index++){
@@ -48,9 +48,15 @@ public class TotalDollarBillsPerUser {
             }
         }catch(NumberFormatException e){
             AuditLog.log(e.getMessage());
-            System.out.println("Invalid input!");
+            System.out.println("Invalid input!. Please input only numbers in the format 1,1,1,1.");
+            for(int index=0;index<numberDollarBillsInText.length;index++){
+                result[index] = 0;
+            }
         }
-        AuditLog.log("Changed customer money into integer array. Contents are: " + result[0]+" " + result[1]+" " + result[2]+" " + result[3]);
+        AuditLog.log("Changed customer money into integer array. Contents are: ");
+        for(int index=0;index<numberDollarBillsInText.length;index++){
+            AuditLog.log(Integer.toString(result[index]));
+        }
         return result;
     }
 }
