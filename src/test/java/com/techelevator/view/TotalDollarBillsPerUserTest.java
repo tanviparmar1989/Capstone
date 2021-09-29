@@ -29,4 +29,10 @@ public class TotalDollarBillsPerUserTest {
         // then
         Assert.assertEquals("$0.00", userBalance);
     }
+
+    @Test
+    public void testGetTotalBalance() {
+        TotalDollarBillsPerUser totalDollarBillsPerUser = new TotalDollarBillsPerUser(1, 1, 1, 2);
+        Assert.assertEquals(28.0, totalDollarBillsPerUser.getTotalBalance(),1);
+    }
 }
