@@ -29,8 +29,16 @@ public class VendingMachine {
             if(bill>0) hasEnteredValid = true;
         }
         if(hasEnteredValid){
-            customerMoney = new TotalDollarBillsPerUser(enteredBills[0], enteredBills[1], enteredBills[2], enteredBills[3]);
-            AuditLog.log("Prompted user to enter money and then accepted the money and created a TotalDollarBillsPerUser object.");
+            if(!(customerMoney.getTotalBalance()>0)) {
+                customerMoney = new TotalDollarBillsPerUser(enteredBills[0], enteredBills[1], enteredBills[2], enteredBills[3]);
+                AuditLog.log("Prompted user to enter money and then accepted the money and created a TotalDollarBillsPerUser object.");
+            }else{
+                TotalDollarBillsPerUser additionalCustomerMoney =
+                        new TotalDollarBillsPerUser(enteredBills[0], enteredBills[1], enteredBills[2], enteredBills[3]);
+                customerMoney.setTotalBalance(customerMoney.getTotalBalance() + additionalCustomerMoney.getTotalBalance());
+                AuditLog.log("Prompted user to enter money and then added new money to existing balance.");
+            }
+
         }else{
             System.out.println("You have not entered any money.");
         }
@@ -68,7 +76,7 @@ public class VendingMachine {
                     product.setQuantity(product.getQuantity()-1);
                     AuditLog.log("Reduced quantity of "+product.getProductName()+" by 1. New quantity is " + product.getQuantity());
                     double price = product.getPrice();
-                    customerMoney.setTotalBalance(price);
+                    customerMoney.reduceTotalBalance(price);
 
                     AuditLog.log("Reduced money balance by "+ price + " dollars. Now balance is " + getUserBalance());
                     //
@@ -111,7 +119,7 @@ public class VendingMachine {
         if(customerMoney.getTotalBalance() > 0) {
             AuditLog.log("Current user balance is: "+getUserBalance());
             System.out.println("Your change is: " + getUserBalance());
-            customerMoney.setTotalBalance(customerMoney.getTotalBalance());
+            customerMoney.reduceTotalBalance(customerMoney.getTotalBalance());
             AuditLog.log("set user balance to zero and provided change to user.");
             AuditLog.log("Now balance is: " + getUserBalance());
         }

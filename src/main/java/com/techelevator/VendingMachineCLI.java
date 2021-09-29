@@ -46,7 +46,7 @@ public class VendingMachineCLI {
 						restockMachine.displayProducts();
 						restockMachine.selectProduct();
 						restockMachine.dispenseProducts();
-						restockMachine.disperseChange();
+						//restockMachine.disperseChange();
 					}else if(choice.equals(MAIN_MENU_OPTION_SELECT_PRODUCT)){
 						AuditLog.log("Customer chose the 'select product' option so will display products.");
 						restockMachine.displayProducts();
@@ -54,7 +54,7 @@ public class VendingMachineCLI {
 						if(!restockMachine.acceptMoney()) continue;
 						restockMachine.displayUserBalance();
 						restockMachine.dispenseProducts();
-						restockMachine.disperseChange();
+						//restockMachine.disperseChange();
 					}else if(choice.equals(MAIN_MENU_OPTION_FINISH_TRANSACTION)){
 						restockMachine.disperseChange();
 						AuditLog.log("customer chose to finish transaction so gave customer change and reverted back to main menu.");

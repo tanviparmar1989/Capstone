@@ -29,6 +29,10 @@ public class TotalDollarBillsPerUser {
     }
 
     public void setTotalBalance(double totalBalance) {
+        this.totalBalance = totalBalance;
+    }
+
+    public void reduceTotalBalance(double totalBalance) {
             this.totalBalance -= totalBalance;
     }
 
