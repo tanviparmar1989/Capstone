@@ -1,6 +1,8 @@
 package com.techelevator;
 
 import com.techelevator.view.Menu;
+import com.techelevator.view.SalesReport;
+import java.time.LocalDateTime;
 
 import java.util.Scanner;
 
@@ -54,7 +56,6 @@ public class VendingMachineCLI {
 						if(!restockMachine.acceptMoney()) continue;
 						restockMachine.displayUserBalance();
 						restockMachine.dispenseProducts();
-						//restockMachine.disperseChange();
 					}else if(choice.equals(MAIN_MENU_OPTION_FINISH_TRANSACTION)){
 						restockMachine.disperseChange();
 						AuditLog.log("customer chose to finish transaction so gave customer change and reverted back to main menu.");
