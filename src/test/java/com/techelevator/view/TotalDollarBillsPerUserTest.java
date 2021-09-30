@@ -33,6 +33,24 @@ public class TotalDollarBillsPerUserTest {
     @Test
     public void testGetTotalBalance() {
         TotalDollarBillsPerUser totalDollarBillsPerUser = new TotalDollarBillsPerUser(1, 1, 1, 2);
-        Assert.assertEquals(28.0, totalDollarBillsPerUser.getTotalBalance(),1);
+        Assert.assertEquals(28.0, totalDollarBillsPerUser.getTotalBalance(), 1);
+    }
+
+    @Test
+    public void testParseMoney_HappyPath() {
+        int[] result = TotalDollarBillsPerUser.parseMoney("1,2,3,4");
+        Assert.assertArrayEquals(new int[]{1, 2, 3, 4}, result);
+    }
+
+    @Test
+    public void testParseMoney_InvalidInput() {
+        int[] result = TotalDollarBillsPerUser.parseMoney("1,2,a");
+        Assert.assertArrayEquals(new int[] {0, 0, 0}, result);
+    }
+
+    @Test
+    public void testReduceTotalBalance() {
+        TotalDollarBillsPerUser totalDollarBillsPerUser = new TotalDollarBillsPerUser(1, 2, 3, 1);
+        //Assert.assertEquals("25", totalDollarBillsPerUser.reduceTotalBalance(5.00));
     }
 }

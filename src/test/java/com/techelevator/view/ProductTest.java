@@ -1,6 +1,7 @@
 package com.techelevator.view;
 
 import com.techelevator.Products;
+import com.techelevator.TotalDollarBillsPerUser;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -21,7 +22,7 @@ public class ProductTest {
     @Test
     public void testGetSlotLocation_withInvalidCode(){
         Products products = new Products("g1", "", 0.0, "");
-       // System.out.println(products.getSlotLocation());
+        System.out.println(products.getSlotLocation());
     }
 
     @Test
@@ -53,5 +54,6 @@ public class ProductTest {
         Products products = new Products("", "", 0.0, "");
         Assert.assertEquals(5, products.getQuantity());
     }
+
 
 }
