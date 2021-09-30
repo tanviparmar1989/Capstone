@@ -11,7 +11,7 @@ public class VendingMachine {
     private String[] userSelectedProductsSlotNumbers;
 
     public static Map<String, Integer> allSalesReport = null;
-    public static int allSales = 0;
+    public static double allSales = 0;
 
 
 
@@ -64,79 +64,56 @@ public class VendingMachine {
         double totalSalesAmount = 0.0;
         int numberOfItemSold;
         Set<String> dispensedSlotNumbers = new HashSet<>();
-
-       //Sales Report
         Map<String, Integer> salesReport_ProductList = new HashMap<>();
         for(Products productName: this.productList){
             salesReport_ProductList.put(productName.getProductName(), 0);
         }
-
         if (allSalesReport == null) {
             allSalesReport = new HashMap<>();
             for (Products productName : this.productList) {
                 allSalesReport.put(productName.getProductName(), 0);
             }
         }
-
         for(String slotNumberUser: userSelectedProductsSlotNumbers){
             for(Products product: this.productList){
-                //put the every product from list to map
                 String slot = product.getSlotLocation();
                 if(slotNumberUser.equalsIgnoreCase(slot)){
                     AuditLog.log("Starting Quantity " + product.getQuantity());
                     AuditLog.log("Starting balance " + getUserBalance());
-
                     if(product.getQuantity()<=0){
                         System.out.println(product.getProductName()+" is SOLD OUT.");
                         break;
                     }
                     product.setQuantity(product.getQuantity()-1);
-
-
-
                     AuditLog.log("Reduced quantity of "+product.getProductName()+" by 1. New quantity is " + product.getQuantity());
                     double price = product.getPrice();
                     customerMoney.reduceTotalBalance(price);
-
                     AuditLog.log("Reduced money balance by "+ price + " dollars. Now balance is " + getUserBalance());
-                    //
                     String productTypeSpecificStatement = "";
                     if(product.getType().equalsIgnoreCase("Chip")) productTypeSpecificStatement = "Crunch Crunch, Yum!";
                     else if (product.getType().equalsIgnoreCase("Candy")) productTypeSpecificStatement = "Munch Munch, Yum!";
                     else if (product.getType().equalsIgnoreCase("Drink")) productTypeSpecificStatement = "Glug Glug, Yum!";
                     else if (product.getType().equalsIgnoreCase("Gum")) productTypeSpecificStatement = "Chew Chew, Yum!";
-                    //
                     System.out.println("Dispensed item "+product.getProductName()+", " + "cost: "+product.getPrice()+", "+"Remaining balance: "+ getUserBalance());
                     System.out.println(productTypeSpecificStatement);
-
                     numberOfItemSold = 5 - product.getQuantity();
-
                     String productName = product.getProductName();
                     salesReport_ProductList.replace(productName, 0, numberOfItemSold);
-
                     allSalesReport.put(productName, allSalesReport.getOrDefault(productName, 0) + numberOfItemSold);
                     allSales += numberOfItemSold * product.getPrice();
-
                     AuditLog.log("Dispensed item "+product.getProductName()+", " + "cost: "+product.getPrice()+", "+"Remaining balance: "+ getUserBalance());
                     AuditLog.log(productTypeSpecificStatement);
                     dispensedSlotNumbers.add(slotNumberUser);
                     totalSales.add(product.getPrice());
-
-                   // salesReport_ProductList.put(product.getProductName(), numberOfItemSold);
                 }
-                //Map
-                //salesReport_ProductList.put(product.getProductName(), 0);
-
             }
 
         }
-                    //SalesReport.salesReport_Map(salesReport_ProductList);
-                    checkIfAllSlotsValid(userSelectedProductsSlotNumbers, dispensedSlotNumbers);
-                    for(double sale : totalSales){
-                         totalSalesAmount += sale;
-                    }
-                    //SalesReport.displayTotalSales("Total Sales : $" + totalSalesAmount,salesReport_ProductList );
-                    AuditLog.log("Dispensed all products by reducing quantity of each and reducing money balance as well.");
+        checkIfAllSlotsValid(userSelectedProductsSlotNumbers, dispensedSlotNumbers);
+        for(double sale : totalSales){
+            totalSalesAmount += sale;
+        }
+        AuditLog.log("Dispensed all products by reducing quantity of each and reducing money balance as well.");
 
     }
 
@@ -152,19 +129,18 @@ public class VendingMachine {
     public void disperseChange(){
         if(customerMoney.getTotalBalance() > 0) {
             AuditLog.log("Current user balance is: "+getUserBalance());
-            System.out.println("Your change is: " + getUserBalance()+"\n");
+            System.out.println("\nYour change is: " + getUserBalance()+"\n");
             double changeDue = customerMoney.getTotalBalance();
             int change = (int)(Math.ceil(changeDue*100));
-            int quarters = Math.round((int)change/25);
-            change=change%25;
+            int nickels = Math.round((int)change/5);
+            change=change%5;
             int dimes = Math.round((int)change/10);
             change=change%10;
-            int nickels = Math.round((int)change/5);
-
+            int quarters = Math.round((int)change/25);
+            //change=change%25;
             System.out.println("Quarters: " + quarters);
             System.out.println("Dimes: " + dimes);
             System.out.println("Nickels: " + nickels);
-
             customerMoney.reduceTotalBalance(customerMoney.getTotalBalance());
             AuditLog.log("set user balance to zero and provided change to user.");
             AuditLog.log("Now balance is: " + getUserBalance());
@@ -183,7 +159,6 @@ public class VendingMachine {
 
     public void displayProducts(){
         System.out.println("\nList of items:\n");
-        //System.out.println("Slot Name        Price   Type   Quantity");
         System.out.println("-----------------------------------------------------------------------------");
         System.out.printf("%10s %20s %22s %10s %15s", "Code", "Product Name", "Price", "Type", "Quantity");
         System.out.println();

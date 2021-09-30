@@ -33,11 +33,9 @@ public class VendingMachineCLI {
 			String choice = (String) menu.getChoiceFromOptions(MAIN_MENU_OPTIONS);
 			AuditLog.log("Displayed main menu to customer.");
 			if (choice.equals(MAIN_MENU_OPTION_DISPLAY_ITEMS)) {
-				// display vending machine items
 				AuditLog.log("Customer chose to display items.");
 				restockMachine.displayProducts();
 			} else if (choice.equals(MAIN_MENU_OPTION_PURCHASE)) {
-				// do purchase
 				while(true){
 					choice = (String) menu.getChoiceFromOptions(MAIN_MENU_OPTIONS_LEVEL2, restockMachine);
 					AuditLog.log("Customer chose to purchase items so displayed menu 2 to customer.");
@@ -48,7 +46,6 @@ public class VendingMachineCLI {
 						restockMachine.displayProducts();
 						restockMachine.selectProduct();
 						restockMachine.dispenseProducts();
-						//restockMachine.disperseChange();
 					}else if(choice.equals(MAIN_MENU_OPTION_SELECT_PRODUCT)){
 						AuditLog.log("Customer chose the 'select product' option so will display products.");
 						restockMachine.displayProducts();
@@ -64,11 +61,9 @@ public class VendingMachineCLI {
 				}
 
 			}else if(choice.equals(MAIN_MENU_OPTION_EXIT)){
-				// exit
 				System.exit(1);
 				AuditLog.log("Exiting the application.");
 			}else if(choice.equals(MAIN_MENU_OPTION_SALES_REPORT)){
-				//make it hidden and it generates a report
 				AuditLog.log("Generating Sales Report");
 				SalesReport.displayTotalSales("Total Sales : $" + VendingMachine.allSales, VendingMachine.allSalesReport);
 				System.exit(1);

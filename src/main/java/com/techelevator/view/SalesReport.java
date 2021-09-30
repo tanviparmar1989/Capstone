@@ -30,7 +30,7 @@ public class SalesReport {
             if (logWriter == null) logWriter = new PrintWriter(new FileWriter(logFile));
             logWriter.println("Sales Report: " + LocalDateTime.now() + "\n");
             for (Map.Entry<String, Integer> salesReportItem : salesReport_ProductList.entrySet()) {
-                logWriter.println(salesReportItem.getKey() + "|" + salesReportItem.getValue() + "\n\n");
+                logWriter.println(salesReportItem.getKey() + "|" + salesReportItem.getValue() + "\n");
                 }
             logWriter.println(message);
 

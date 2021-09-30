@@ -20,9 +20,6 @@ public class TotalDollarBillsPerUser {
         this.totalBalance = this.oneDollarBills + this.twoDollarBills + this.fiveDollarBills + this.tenDollarBills;
     }
 
-//    private void calculateUserBalance(){
-//        this.totalBalance = this.oneDollarBills + this.twoDollarBills + this.fiveDollarBills + this.tenDollarBills;
-//    }
 
     public double getTotalBalance() {
         return totalBalance;
