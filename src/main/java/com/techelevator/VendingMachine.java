@@ -9,7 +9,6 @@ import java.util.*;
 public class VendingMachine {
 
     private List<Products> productList = new ArrayList<>();
-    //private Map<VendingMachineUser, TotalDollarBillsPerUser> machineUsers = new HashMap<>();
     private TotalDollarBillsPerUser customerMoney = new TotalDollarBillsPerUser(0,0,0,0);
     private String[] userSelectedProductsSlotNumbers;
 
@@ -118,7 +117,19 @@ public class VendingMachine {
     public void disperseChange(){
         if(customerMoney.getTotalBalance() > 0) {
             AuditLog.log("Current user balance is: "+getUserBalance());
-            System.out.println("Your change is: " + getUserBalance());
+            System.out.println("Your change is: " + getUserBalance()+"\n");
+            double changeDue = customerMoney.getTotalBalance();
+            int change = (int)(Math.ceil(changeDue*100));
+            int quarters = Math.round((int)change/25);
+            change=change%25;
+            int dimes = Math.round((int)change/10);
+            change=change%10;
+            int nickels = Math.round((int)change/5);
+
+            System.out.println("Quarters: " + quarters);
+            System.out.println("Dimes: " + dimes);
+            System.out.println("Nickels: " + nickels);
+
             customerMoney.reduceTotalBalance(customerMoney.getTotalBalance());
             AuditLog.log("set user balance to zero and provided change to user.");
             AuditLog.log("Now balance is: " + getUserBalance());
