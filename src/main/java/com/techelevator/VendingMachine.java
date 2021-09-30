@@ -1,7 +1,5 @@
 package com.techelevator;
 
-import com.techelevator.view.SalesReport;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
@@ -12,6 +10,9 @@ public class VendingMachine {
     //private Map<VendingMachineUser, TotalDollarBillsPerUser> machineUsers = new HashMap<>();
     private TotalDollarBillsPerUser customerMoney = new TotalDollarBillsPerUser(0,0,0,0);
     private String[] userSelectedProductsSlotNumbers;
+
+    public static Map<String, Integer> allSalesReport = null;
+    public static int allSales = 0;
 
 
 
@@ -71,7 +72,12 @@ public class VendingMachine {
             salesReport_ProductList.put(productName.getProductName(), 0);
         }
 
-
+        if (allSalesReport == null) {
+            allSalesReport = new HashMap<>();
+            for (Products productName : this.productList) {
+                allSalesReport.put(productName.getProductName(), 0);
+            }
+        }
 
         for(String slotNumberUser: userSelectedProductsSlotNumbers){
             for(Products product: this.productList){
@@ -105,15 +111,18 @@ public class VendingMachine {
                     System.out.println(productTypeSpecificStatement);
 
                     numberOfItemSold = 5 - product.getQuantity();
-                    salesReport_ProductList.replace(product.getProductName(), 0, numberOfItemSold);
+
+                    String productName = product.getProductName();
+                    salesReport_ProductList.replace(productName, 0, numberOfItemSold);
+
+                    allSalesReport.put(productName, allSalesReport.getOrDefault(productName, 0) + numberOfItemSold);
+                    allSales += numberOfItemSold * product.getPrice();
 
                     AuditLog.log("Dispensed item "+product.getProductName()+", " + "cost: "+product.getPrice()+", "+"Remaining balance: "+ getUserBalance());
                     AuditLog.log(productTypeSpecificStatement);
                     dispensedSlotNumbers.add(slotNumberUser);
                     totalSales.add(product.getPrice());
 
-
-                    //Map
                    // salesReport_ProductList.put(product.getProductName(), numberOfItemSold);
                 }
                 //Map
@@ -127,7 +136,7 @@ public class VendingMachine {
                     for(double sale : totalSales){
                          totalSalesAmount += sale;
                     }
-                    SalesReport.displayTotalSales("Total Sales : $" + totalSalesAmount,salesReport_ProductList );
+                    //SalesReport.displayTotalSales("Total Sales : $" + totalSalesAmount,salesReport_ProductList );
                     AuditLog.log("Dispensed all products by reducing quantity of each and reducing money balance as well.");
 
     }
@@ -197,4 +206,5 @@ public class VendingMachine {
 
         }
     }
+
 }

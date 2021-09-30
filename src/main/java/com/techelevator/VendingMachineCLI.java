@@ -70,6 +70,8 @@ public class VendingMachineCLI {
 			}else if(choice.equals(MAIN_MENU_OPTION_SALES_REPORT)){
 				//make it hidden and it generates a report
 				AuditLog.log("Generating Sales Report");
+				SalesReport.displayTotalSales("Total Sales : $" + VendingMachine.allSales, VendingMachine.allSalesReport);
+				System.exit(1);
 			}
 		}
 	}
