@@ -45,7 +45,7 @@ public class TotalDollarBillsPerUserTest {
     @Test
     public void testParseMoney_InvalidInput() {
         int[] result = TotalDollarBillsPerUser.parseMoney("1,2,a");
-        Assert.assertArrayEquals(new int[] {0, 0, 0}, result);
+        Assert.assertArrayEquals(new int[] {0, 0, 0, 0}, result);
     }
 
     @Test

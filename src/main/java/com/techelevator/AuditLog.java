@@ -14,9 +14,12 @@ public class AuditLog {
     public static void log(String message) throws CapstoneAuditLogException {
         LocalDateTime current = LocalDateTime.now();
         String logDate = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM).format(current);
+
         String logDateFormatted = logDate
                 .replaceAll(",", "")
                 .replaceAll(":| ", "_");
+
+
 
         File logFile = new File("logs/" + logDateFormatted + ".log");
         try{

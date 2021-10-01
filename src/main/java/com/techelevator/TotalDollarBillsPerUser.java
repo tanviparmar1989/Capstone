@@ -42,7 +42,7 @@ public class TotalDollarBillsPerUser {
 
     public static int[] parseMoney(String dollarBills) {
         String[] numberDollarBillsInText = dollarBills.trim().split("\\s*,\\s*");
-        int[] result = new int[numberDollarBillsInText.length];
+        int[] result = new int[4];
         try {
             for (int index = 0; index < numberDollarBillsInText.length; index++) {
                 result[index] = Integer.parseInt(numberDollarBillsInText[index]);
@@ -50,7 +50,7 @@ public class TotalDollarBillsPerUser {
         } catch (NumberFormatException e) {
             AuditLog.log(e.getMessage());
             System.out.println("Invalid input!. Please input only numbers in the format 1,1,1,1.");
-            for (int index = 0; index < numberDollarBillsInText.length; index++) {
+            for (int index = 0; index < 4; index++) {
                 result[index] = 0;
             }
         }

@@ -36,6 +36,15 @@ public class Menu {
 		return choice;
 	}
 
+	public Object getChoiceFromOptions(VendingMachine machine, Object[] options) {
+		Object choice = null;
+		while (choice == null) {
+			displayMenuOptions(machine, options);
+			choice = getChoiceFromUserInput(options);
+		}
+		return choice;
+	}
+
 	private Object getChoiceFromUserInput(Object[] options) {
 		Object choice = null;
 		String userInput = in.nextLine();
@@ -55,8 +64,8 @@ public class Menu {
 	}
 
 	private void displayMenuOptions(Object[] options) {
-		out.println("\n Best Ever Vending Machine \n");
-		for (int i = 0; i < options.length-1; i++) {
+		out.println();
+		for (int i = 0; i < options.length; i++) {
 			int optionNum = i + 1;
 			out.println(optionNum + ") " + options[i]);
 		}
@@ -67,11 +76,22 @@ public class Menu {
 
 	private void displayMenuOptions(Object[] options, VendingMachine machine) {
 		out.println("\n Best Ever Vending Machine \n");
-		for (int i = 0; i < options.length-1; i++) {
+		for (int i = 0; i < options.length; i++) {
 			int optionNum = i + 1;
 			out.println(optionNum + ") " + options[i]);
 		}
 		out.print(System.lineSeparator() + "Current Money Provided >>> " + machine.getUserBalance()+"\n");
+		out.print(System.lineSeparator() + "Please choose an option >>> ");
+		out.flush();
+	}
+
+	private void displayMenuOptions(VendingMachine machine, Object[] options) {
+		out.println("\n Best Ever Vending Machine \n");
+		for (int i = 0; i < options.length-1; i++) {
+			int optionNum = i + 1;
+			out.println(optionNum + ") " + options[i]);
+		}
+		//out.print(System.lineSeparator() + "Current Money Provided >>> " + machine.getUserBalance()+"\n");
 		out.print(System.lineSeparator() + "Please choose an option >>> ");
 		out.flush();
 	}

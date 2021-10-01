@@ -33,7 +33,7 @@ public class ProductTest {
 
     @Test
     public void testGetProductName_NullString(){
-        Products products = new Products("", "", 0.0, "");
+        Products products = new Products("", "Potato Crisps", 0.0, "");
         Assert.assertEquals("Potato Crisps",products.getProductName());
     }
 

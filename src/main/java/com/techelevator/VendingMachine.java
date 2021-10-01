@@ -17,33 +17,76 @@ public class VendingMachine {
 
     public boolean acceptMoney(){
         boolean hasEnteredValid = false;
-        Scanner userInput = new Scanner(System.in);
-        System.out.println(" Please enter dollar bills as follows: ");
-        System.out.println(" number of 1 dollar bills,number of 2 dollar bills,number of 5 dollar bills,number of 10 dollar bills  ");
-        System.out.println("                                              ");
-        System.out.println(" Example: If you would like to enter 2 ten dollar bills: 0,0,0,2");
-        System.out.println("Please enter dollar bills:");
-        String userEnteredBills = userInput.nextLine();
-        int[] enteredBills = TotalDollarBillsPerUser.parseMoney(userEnteredBills);
-        for(int bill: enteredBills){
-            if(bill>0) hasEnteredValid = true;
-        }
-        if(hasEnteredValid){
-            if(!(customerMoney.getTotalBalance()>0)) {
-                customerMoney = new TotalDollarBillsPerUser(enteredBills[0], enteredBills[1], enteredBills[2], enteredBills[3]);
-                AuditLog.log("Prompted user to enter money and then accepted the money and created a TotalDollarBillsPerUser object.");
-            }else{
-                TotalDollarBillsPerUser additionalCustomerMoney =
-                        new TotalDollarBillsPerUser(enteredBills[0], enteredBills[1], enteredBills[2], enteredBills[3]);
-                customerMoney.setTotalBalance(customerMoney.getTotalBalance() + additionalCustomerMoney.getTotalBalance());
-                AuditLog.log("Prompted user to enter money and then added new money to existing balance.");
+        double totalPriceOfSelectedItems = 0;
+        if(userSelectedProductsSlotNumbers != null){
+            for(String slotNumberUser: userSelectedProductsSlotNumbers){
+                for(Products product: this.productList){
+                    String slot = product.getSlotLocation();
+                    if(slotNumberUser.equalsIgnoreCase(slot)){
+                        totalPriceOfSelectedItems += product.getPrice();
+                    }
+                }
             }
+            if(customerMoney.getTotalBalance()<totalPriceOfSelectedItems){
+                Scanner userInput = new Scanner(System.in);
+                System.out.println(" Please enter dollar bills as follows: ");
+                System.out.println(" number of 1 dollar bills,number of 2 dollar bills,number of 5 dollar bills,number of 10 dollar bills  ");
+                System.out.println("                                              ");
+                System.out.println(" Example: If you would like to enter 2 ten dollar bills: 0,0,0,2");
+                System.out.println("Please enter dollar bills:");
+                String userEnteredBills = userInput.nextLine();
+                int[] enteredBills = TotalDollarBillsPerUser.parseMoney(userEnteredBills);
+                for(int bill: enteredBills){
+                    if(bill>0) hasEnteredValid = true;
+                }
+                if(hasEnteredValid){
+                    if(!(customerMoney.getTotalBalance()>0)) {
+                        customerMoney = new TotalDollarBillsPerUser(enteredBills[0], enteredBills[1], enteredBills[2], enteredBills[3]);
+                        AuditLog.log("Prompted user to enter money and then accepted the money and created a TotalDollarBillsPerUser object.");
+                    }else{
+                        TotalDollarBillsPerUser additionalCustomerMoney =
+                                new TotalDollarBillsPerUser(enteredBills[0], enteredBills[1], enteredBills[2], enteredBills[3]);
+                        customerMoney.setTotalBalance(customerMoney.getTotalBalance() + additionalCustomerMoney.getTotalBalance());
+                        AuditLog.log("Prompted user to enter money and then added new money to existing balance.");
+                    }
 
+                }else{
+                    System.out.println("You have not entered any money.");
+                }
+                return hasEnteredValid;
+            }else{
+                return true;
+            }
         }else{
-            System.out.println("You have not entered any money.");
+            Scanner userInput = new Scanner(System.in);
+            System.out.println(" Please enter dollar bills as follows: ");
+            System.out.println(" number of 1 dollar bills,number of 2 dollar bills,number of 5 dollar bills,number of 10 dollar bills  ");
+            System.out.println("                                              ");
+            System.out.println(" Example: If you would like to enter 2 ten dollar bills: 0,0,0,2");
+            System.out.println("Please enter dollar bills:");
+            String userEnteredBills = userInput.nextLine();
+            int[] enteredBills = TotalDollarBillsPerUser.parseMoney(userEnteredBills);
+            for(int bill: enteredBills){
+                if(bill>0) hasEnteredValid = true;
+            }
+            if(hasEnteredValid){
+                if(!(customerMoney.getTotalBalance()>0)) {
+                    customerMoney = new TotalDollarBillsPerUser(enteredBills[0], enteredBills[1], enteredBills[2], enteredBills[3]);
+                    AuditLog.log("Prompted user to enter money and then accepted the money and created a TotalDollarBillsPerUser object.");
+                }else{
+                    TotalDollarBillsPerUser additionalCustomerMoney =
+                            new TotalDollarBillsPerUser(enteredBills[0], enteredBills[1], enteredBills[2], enteredBills[3]);
+                    customerMoney.setTotalBalance(customerMoney.getTotalBalance() + additionalCustomerMoney.getTotalBalance());
+                    AuditLog.log("Prompted user to enter money and then added new money to existing balance.");
+                }
+
+            }else{
+                System.out.println("You have not entered any money.");
+            }
+            return hasEnteredValid;
         }
-        return hasEnteredValid;
     }
+
 
     public void selectProduct(){
         Scanner userInput = new Scanner(System.in);
@@ -64,10 +107,13 @@ public class VendingMachine {
         double totalSalesAmount = 0.0;
         int numberOfItemSold;
         Set<String> dispensedSlotNumbers = new HashSet<>();
+        /*
         Map<String, Integer> salesReport_ProductList = new HashMap<>();
         for(Products productName: this.productList){
             salesReport_ProductList.put(productName.getProductName(), 0);
         }
+
+         */
         if (allSalesReport == null) {
             allSalesReport = new HashMap<>();
             for (Products productName : this.productList) {
@@ -98,9 +144,10 @@ public class VendingMachine {
                     System.out.println(productTypeSpecificStatement);
                     numberOfItemSold = 5 - product.getQuantity();
                     String productName = product.getProductName();
-                    salesReport_ProductList.replace(productName, 0, numberOfItemSold);
-                    allSalesReport.put(productName, allSalesReport.getOrDefault(productName, 0) + numberOfItemSold);
-                    allSales += numberOfItemSold * product.getPrice();
+                    //salesReport_ProductList.replace(productName, 0, numberOfItemSold);
+                    allSalesReport.replace(product.getProductName(), allSalesReport.get(product.getProductName())+1);
+                    //allSalesReport.put(productName, allSalesReport.getOrDefault(productName, 0) + numberOfItemSold);
+                    allSales += product.getPrice();
                     AuditLog.log("Dispensed item "+product.getProductName()+", " + "cost: "+product.getPrice()+", "+"Remaining balance: "+ getUserBalance());
                     AuditLog.log(productTypeSpecificStatement);
                     dispensedSlotNumbers.add(slotNumberUser);
@@ -132,12 +179,13 @@ public class VendingMachine {
             System.out.println("\nYour change is: " + getUserBalance()+"\n");
             double changeDue = customerMoney.getTotalBalance();
             int change = (int)(Math.ceil(changeDue*100));
-            int nickels = Math.round((int)change/5);
-            change=change%5;
+            int quarters = Math.round((int)change/25);
+            change=change%25;
             int dimes = Math.round((int)change/10);
             change=change%10;
-            int quarters = Math.round((int)change/25);
-            //change=change%25;
+            int nickels = Math.round((int)change/5);
+            //change=change%5;
+
             System.out.println("Quarters: " + quarters);
             System.out.println("Dimes: " + dimes);
             System.out.println("Nickels: " + nickels);

@@ -21,16 +21,18 @@ public class SalesReport {
 
         LocalDateTime current = LocalDateTime.now();
         String logDate = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM).format(current);
+
         String logDateFormatted = logDate
                 .replaceAll(",", "")
                 .replaceAll(":| ", "_");
+
 
         File logFile = new File("SalesReport/" + logDateFormatted + ".log");
         try {
             if (logWriter == null) logWriter = new PrintWriter(new FileWriter(logFile));
             logWriter.println("Sales Report: " + LocalDateTime.now() + "\n");
             for (Map.Entry<String, Integer> salesReportItem : salesReport_ProductList.entrySet()) {
-                logWriter.println(salesReportItem.getKey() + "|" + salesReportItem.getValue() + "\n");
+                logWriter.println(salesReportItem.getKey() + "|" + salesReportItem.getValue());
                 }
             logWriter.println(message);
 
@@ -39,19 +41,5 @@ public class SalesReport {
             } finally {
             logWriter.flush();
         }
-
-
     }
-    /*public static void displaySalesReport(Map<String, Integer> salesReport_ProductList){
-        if(logWriter == null) logWriter = new PrintWriter(new FileWriter(logFile));
-        {
-            logWriter.println("Sales Report: " + LocalDateTime.now() + "\n");
-            for (Map.Entry<String, Integer> salesReportItem : salesReport_ProductList.entrySet()) {
-                logWriter.println(salesReportItem.getKey() + "|" + salesReportItem.getValue());
-            }
-        }
-
-    }
-
-     */
 }
