@@ -1,0 +1,99 @@
+Oct 1, 2021, 6:56:23 PM Created a vending machine.
+Oct 1, 2021, 6:56:24 PM Restocked the vending machine.
+Oct 1, 2021, 6:56:27 PM Displayed main menu to customer.
+Oct 1, 2021, 6:56:27 PM Customer chose to display items.
+Oct 1, 2021, 6:56:27 PM Displayed products menu.
+Oct 1, 2021, 6:56:27 PM Created a vending machine.
+Oct 1, 2021, 6:56:27 PM Restocked the vending machine.
+Oct 1, 2021, 6:56:36 PM Displayed main menu to customer.
+Oct 1, 2021, 6:56:42 PM Customer chose to purchase items so displayed menu 2 to customer.
+Oct 1, 2021, 6:56:42 PM Customer chose to feed money.
+Oct 1, 2021, 6:56:44 PM For input string: "x"
+Oct 1, 2021, 6:56:44 PM Changed customer money into integer array. Contents are: 
+Oct 1, 2021, 6:56:44 PM 0
+Oct 1, 2021, 6:56:50 PM Customer chose to purchase items so displayed menu 2 to customer.
+Oct 1, 2021, 6:56:50 PM Customer chose to feed money.
+Oct 1, 2021, 6:56:55 PM Changed customer money into integer array. Contents are: 
+Oct 1, 2021, 6:56:55 PM 1
+Oct 1, 2021, 6:56:55 PM 1
+Oct 1, 2021, 6:56:55 PM 1
+Oct 1, 2021, 6:56:55 PM 1
+Oct 1, 2021, 6:56:55 PM Prompted user to enter money and then accepted the money and created a TotalDollarBillsPerUser object.
+Oct 1, 2021, 6:56:55 PM Displayed user balance to customer and the balance is: $18.00
+Oct 1, 2021, 6:56:55 PM Displayed products menu.
+Oct 1, 2021, 6:57:33 PM Captured customer selections. Slot numbers are:
+Oct 1, 2021, 6:57:33 PM A1
+Oct 1, 2021, 6:57:33 PM D4
+Oct 1, 2021, 6:57:33 PM A1
+Oct 1, 2021, 6:57:33 PM A1
+Oct 1, 2021, 6:57:33 PM A1
+Oct 1, 2021, 6:57:33 PM A1
+Oct 1, 2021, 6:57:33 PM A1
+Oct 1, 2021, 6:57:33 PM H1
+Oct 1, 2021, 6:57:33 PM Dispensing products
+Oct 1, 2021, 6:57:33 PM Starting Quantity 5
+Oct 1, 2021, 6:57:33 PM Starting balance $18.00
+Oct 1, 2021, 6:57:33 PM Reduced quantity of Potato Crisps by 1. New quantity is 4
+Oct 1, 2021, 6:57:33 PM Reduced money balance by 3.05 dollars. Now balance is $14.95
+Oct 1, 2021, 6:57:33 PM Dispensed item Potato Crisps, cost: 3.05, Remaining balance: $14.95
+Oct 1, 2021, 6:57:33 PM Crunch Crunch, Yum!
+Oct 1, 2021, 6:57:33 PM Starting Quantity 5
+Oct 1, 2021, 6:57:33 PM Starting balance $14.95
+Oct 1, 2021, 6:57:33 PM Reduced quantity of Triplemint by 1. New quantity is 4
+Oct 1, 2021, 6:57:33 PM Reduced money balance by 0.75 dollars. Now balance is $14.20
+Oct 1, 2021, 6:57:33 PM Dispensed item Triplemint, cost: 0.75, Remaining balance: $14.20
+Oct 1, 2021, 6:57:33 PM Chew Chew, Yum!
+Oct 1, 2021, 6:57:33 PM Starting Quantity 4
+Oct 1, 2021, 6:57:33 PM Starting balance $14.20
+Oct 1, 2021, 6:57:33 PM Reduced quantity of Potato Crisps by 1. New quantity is 3
+Oct 1, 2021, 6:57:33 PM Reduced money balance by 3.05 dollars. Now balance is $11.15
+Oct 1, 2021, 6:57:33 PM Dispensed item Potato Crisps, cost: 3.05, Remaining balance: $11.15
+Oct 1, 2021, 6:57:33 PM Crunch Crunch, Yum!
+Oct 1, 2021, 6:57:33 PM Starting Quantity 3
+Oct 1, 2021, 6:57:33 PM Starting balance $11.15
+Oct 1, 2021, 6:57:33 PM Reduced quantity of Potato Crisps by 1. New quantity is 2
+Oct 1, 2021, 6:57:33 PM Reduced money balance by 3.05 dollars. Now balance is $8.10
+Oct 1, 2021, 6:57:33 PM Dispensed item Potato Crisps, cost: 3.05, Remaining balance: $8.10
+Oct 1, 2021, 6:57:33 PM Crunch Crunch, Yum!
+Oct 1, 2021, 6:57:33 PM Starting Quantity 2
+Oct 1, 2021, 6:57:33 PM Starting balance $8.10
+Oct 1, 2021, 6:57:33 PM Reduced quantity of Potato Crisps by 1. New quantity is 1
+Oct 1, 2021, 6:57:33 PM Reduced money balance by 3.05 dollars. Now balance is $5.05
+Oct 1, 2021, 6:57:33 PM Dispensed item Potato Crisps, cost: 3.05, Remaining balance: $5.05
+Oct 1, 2021, 6:57:33 PM Crunch Crunch, Yum!
+Oct 1, 2021, 6:57:33 PM Starting Quantity 1
+Oct 1, 2021, 6:57:33 PM Starting balance $5.05
+Oct 1, 2021, 6:57:33 PM Reduced quantity of Potato Crisps by 1. New quantity is 0
+Oct 1, 2021, 6:57:33 PM Reduced money balance by 3.05 dollars. Now balance is $2.00
+Oct 1, 2021, 6:57:33 PM Dispensed item Potato Crisps, cost: 3.05, Remaining balance: $2.00
+Oct 1, 2021, 6:57:33 PM Crunch Crunch, Yum!
+Oct 1, 2021, 6:57:33 PM Starting Quantity 0
+Oct 1, 2021, 6:57:33 PM Starting balance $2.00
+Oct 1, 2021, 6:57:33 PM User entered a slot number: H1,  that does not exist.
+Oct 1, 2021, 6:57:33 PM Dispensed all products by reducing quantity of each and reducing money balance as well.
+Oct 1, 2021, 6:57:47 PM Customer chose to purchase items so displayed menu 2 to customer.
+Oct 1, 2021, 6:57:47 PM Customer chose the 'select product' option so will display products.
+Oct 1, 2021, 6:57:47 PM Displayed products menu.
+Oct 1, 2021, 6:57:51 PM Captured customer selections. Slot numbers are:
+Oct 1, 2021, 6:57:51 PM A4
+Oct 1, 2021, 6:57:58 PM Changed customer money into integer array. Contents are: 
+Oct 1, 2021, 6:57:58 PM 2
+Oct 1, 2021, 6:57:58 PM Prompted user to enter money and then added new money to existing balance.
+Oct 1, 2021, 6:57:58 PM Displayed user balance to customer and the balance is: $4.00
+Oct 1, 2021, 6:57:58 PM Dispensing products
+Oct 1, 2021, 6:57:58 PM Starting Quantity 5
+Oct 1, 2021, 6:57:58 PM Starting balance $4.00
+Oct 1, 2021, 6:57:58 PM Reduced quantity of Cloud Popcorn by 1. New quantity is 4
+Oct 1, 2021, 6:57:58 PM Reduced money balance by 3.65 dollars. Now balance is $0.35
+Oct 1, 2021, 6:57:58 PM Dispensed item Cloud Popcorn, cost: 3.65, Remaining balance: $0.35
+Oct 1, 2021, 6:57:58 PM Crunch Crunch, Yum!
+Oct 1, 2021, 6:57:58 PM Dispensed all products by reducing quantity of each and reducing money balance as well.
+Oct 1, 2021, 6:58:05 PM Customer chose to purchase items so displayed menu 2 to customer.
+Oct 1, 2021, 6:58:05 PM Current user balance is: $0.35
+Oct 1, 2021, 6:58:05 PM set user balance to zero and provided change to user.
+Oct 1, 2021, 6:58:05 PM Now balance is: $0.00
+Oct 1, 2021, 6:58:05 PM customer chose to finish transaction so gave customer change and reverted back to main menu.
+Oct 1, 2021, 6:58:05 PM Created a vending machine.
+Oct 1, 2021, 6:58:05 PM Restocked the vending machine.
+Oct 1, 2021, 6:58:17 PM Displayed main menu to customer.
+Oct 1, 2021, 6:58:17 PM Generating Sales Report

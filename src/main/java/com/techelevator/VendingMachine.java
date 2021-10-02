@@ -23,7 +23,10 @@ public class VendingMachine {
                 for(Products product: this.productList){
                     String slot = product.getSlotLocation();
                     if(slotNumberUser.equalsIgnoreCase(slot)){
-                        totalPriceOfSelectedItems += product.getPrice();
+                        if(product.getQuantity()>0){
+                            totalPriceOfSelectedItems += product.getPrice();
+                        }
+
                     }
                 }
             }
@@ -92,8 +95,7 @@ public class VendingMachine {
         Scanner userInput = new Scanner(System.in);
         System.out.println(" \nPlease enter slot number of preferred item: ");
         String userChosenItem = userInput.nextLine();
-        String[] slotsNumbersOfSelectedProducts = userChosenItem.trim().split("\\s*,\\s*");
-        userSelectedProductsSlotNumbers = slotsNumbersOfSelectedProducts;
+        userSelectedProductsSlotNumbers = userChosenItem.trim().split("\\s*,\\s*");
         AuditLog.log("Captured customer selections. Slot numbers are:");
         for(String slot: userSelectedProductsSlotNumbers){
             AuditLog.log(slot);
@@ -103,17 +105,7 @@ public class VendingMachine {
     public void dispenseProducts(){
         System.out.println("Dispensing products: ");
         AuditLog.log("Dispensing products");
-        List<Double> totalSales = new ArrayList<>();
-        double totalSalesAmount = 0.0;
-        int numberOfItemSold;
         Set<String> dispensedSlotNumbers = new HashSet<>();
-        /*
-        Map<String, Integer> salesReport_ProductList = new HashMap<>();
-        for(Products productName: this.productList){
-            salesReport_ProductList.put(productName.getProductName(), 0);
-        }
-
-         */
         if (allSalesReport == null) {
             allSalesReport = new HashMap<>();
             for (Products productName : this.productList) {
@@ -142,24 +134,15 @@ public class VendingMachine {
                     else if (product.getType().equalsIgnoreCase("Gum")) productTypeSpecificStatement = "Chew Chew, Yum!";
                     System.out.println("Dispensed item "+product.getProductName()+", " + "cost: "+product.getPrice()+", "+"Remaining balance: "+ getUserBalance());
                     System.out.println(productTypeSpecificStatement);
-                    numberOfItemSold = 5 - product.getQuantity();
-                    String productName = product.getProductName();
-                    //salesReport_ProductList.replace(productName, 0, numberOfItemSold);
                     allSalesReport.replace(product.getProductName(), allSalesReport.get(product.getProductName())+1);
-                    //allSalesReport.put(productName, allSalesReport.getOrDefault(productName, 0) + numberOfItemSold);
                     allSales += product.getPrice();
                     AuditLog.log("Dispensed item "+product.getProductName()+", " + "cost: "+product.getPrice()+", "+"Remaining balance: "+ getUserBalance());
                     AuditLog.log(productTypeSpecificStatement);
                     dispensedSlotNumbers.add(slotNumberUser);
-                    totalSales.add(product.getPrice());
                 }
             }
-
         }
         checkIfAllSlotsValid(userSelectedProductsSlotNumbers, dispensedSlotNumbers);
-        for(double sale : totalSales){
-            totalSalesAmount += sale;
-        }
         AuditLog.log("Dispensed all products by reducing quantity of each and reducing money balance as well.");
 
     }
@@ -225,7 +208,6 @@ public class VendingMachine {
     }
 
     public void restock() {
-        //read input file and populate the list by making product objects out of contents of file
         File file = new File("vendingmachine.csv");
         if (file.exists() && file.canRead()) {
             try (Scanner readFile = new Scanner(file)) {

@@ -54,7 +54,6 @@ public class Menu {
 				choice = options[selectedOption - 1];
 			}
 		} catch (NumberFormatException e) {
-			// eat the exception, an error message will be displayed below since choice will be null
 			AuditLog.log(e.getMessage());
 		}
 		if (choice == null) {
@@ -69,7 +68,6 @@ public class Menu {
 			int optionNum = i + 1;
 			out.println(optionNum + ") " + options[i]);
 		}
-		//out.print(System.lineSeparator() + "Current Money Provided >>> ");
 		out.print(System.lineSeparator() + "Please choose an option >>> ");
 		out.flush();
 	}
@@ -91,7 +89,6 @@ public class Menu {
 			int optionNum = i + 1;
 			out.println(optionNum + ") " + options[i]);
 		}
-		//out.print(System.lineSeparator() + "Current Money Provided >>> " + machine.getUserBalance()+"\n");
 		out.print(System.lineSeparator() + "Please choose an option >>> ");
 		out.flush();
 	}

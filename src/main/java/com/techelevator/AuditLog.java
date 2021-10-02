@@ -19,8 +19,6 @@ public class AuditLog {
                 .replaceAll(",", "")
                 .replaceAll(":| ", "_");
 
-
-
         File logFile = new File("logs/" + logDateFormatted + ".log");
         try{
             if(logWriter == null) logWriter = new PrintWriter(new FileWriter(logFile));
